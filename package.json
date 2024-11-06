@@ -1,0 +1,37 @@
+{
+  "name": "backend",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "SET NODE_ENV=test&&ts-node-dev --rs --poll server.ts",
+    "dev": "ts-node-dev --rs --poll index.ts",
+    "start": "node ./build/app.js",
+    "seed:menu": "ts-node-dev ./dev-data/import-dev-data.ts --seedMenu",
+    "seed:testimonial": "ts-node-dev ./dev-data/import-dev-data.ts --seedTestimonial",
+    "build": "tsc"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "bcrypt": "^5.1.1",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "express": "^4.19.1",
+    "express-validator": "^7.0.1",
+    "joi": "^17.13.3",
+    "jsonwebtoken": "^9.0.2",
+    "mongoose": "^8.2.3",
+    "typescript": "^5.4.3"
+  },
+  "devDependencies": {
+    "@faker-js/faker": "^9.1.0",
+    "@types/bcrypt": "^5.0.2",
+    "@types/cors": "^2.8.17",
+    "@types/express": "^4.17.21",
+    "@types/jsonwebtoken": "^9.0.7",
+    "ts-node": "^10.9.2",
+    "ts-node-dev": "^2.0.0"
+  }
+}
