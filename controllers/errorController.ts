@@ -60,7 +60,6 @@ const sendErrorDev = (err: CustomError, res: Response): void => {
   });
 };
 
-
 const sendErrorProd = (err: CustomError, res: Response): void => {
   if (err.isOperational) {
     res.status(err.statusCode || 500).json({
@@ -105,5 +104,23 @@ const globalErrorHandler = (
     sendErrorProd(error, res);
   }
 };
+//   const globalErrorHandler = (err: CustomError, req: Request, res: Response, next: NextFunction): void => {
+//     err.statusCode = err.statusCode || 500;
+//     err.status = err.status || 'error';
+
+//     if (process.env.NODE_ENV === 'development') {
+//       sendErrorDev(err, res);
+//     } else if (process.env.NODE_ENV === 'production') {
+//       let error = { ...err };
+
+//       if (error.name === 'CastError') error = handleCastErrorDB(error as CastError);
+//       if (error.code === 11000) error = handleDuplicatesDB(error as DuplicateError);
+//       if (error.name === 'ValidationError') error = handleValidationErrorDB(error as ValidationError);
+//       if (error.name === 'JsonWebTokenError') error = handleJWTError();
+//       if (error.name === 'TokenExpiredError') error = handleJWTExpiredError();
+
+//       sendErrorProd(error, res);
+//     }
+//   };
 
 export default globalErrorHandler;

@@ -9,9 +9,10 @@ export interface IUser {
   fullName: string;
   email: string;
   password: string;
-  address: string;
   role: string;
   status: string;
+  phoneNumber?: string;
+  address: string;
   createdAt: Date;
   updatedAt: Date;
 }
@@ -26,14 +27,20 @@ const userSchema = new Schema<IUser, UserModel, IUserDocument>(
       maxlength: [50, "Le nom complet doit avoir moins de 50 caractères"],
       minlength: [3, "Le nom complet doit avoir au moins 3 caractères"],
       lowercase: true,
-      match: [
-        /^[A-Za-z\s]+$/,
-        "Le nom complet ne peut contenir que des lettres et des espaces",
-      ],
     },
     email: {
       type: String,
       required: [true, "Veuillez renseigner l'email"],
+      trim: true,
+      validate: {
+        validator: function (value: string) {
+          // Vérifie si l'email a un format valide
+          const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+          return emailRegex.test(value); // Retourne true si l'email est valide
+        },
+        message: "Veuillez renseigner un email valide",
+      },
+      lowercase: true,
     },
     password: {
       type: String,
@@ -49,6 +56,13 @@ const userSchema = new Schema<IUser, UserModel, IUserDocument>(
       type: String,
       enum: ["active", "inactive", "pending"],
       default: "active",
+    },
+
+    phoneNumber: {
+      type: String,
+    },
+    address: {
+      type: String,
     },
   },
   {
@@ -68,6 +82,7 @@ userSchema.pre("save", async function (next) {
 
   // Hash the password with cost of 12
   this.password = await bcrypt.hash(this.password, 12);
+  this.email = this.email.toLowerCase();
 
   next();
 });

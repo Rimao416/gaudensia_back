@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 import dotenv from "dotenv";
-import { myMenu } from "./seed";
+import { myMenu, TestimonialsPeople } from "./seed";
 import Category from "../models/Category";
 import Dishes from "../models/Dishes";
 import Testimonials from "../models/Testimonials";
@@ -61,14 +61,13 @@ const testimonialSeed = async () => {
   try {
     await Testimonials.deleteMany({});
 
-    for (let i = 0; i < 100; i++) {
+    for (const comment of TestimonialsPeople) {
       const newTestimonial = new Testimonials({
-        author: faker.person.fullName(),
-        comment: faker.lorem.sentence(),
-        mail: faker.internet.email(),
+        comment,
       });
-      await newTestimonial.save();
+      await newTestimonial.save(); // Assure que chaque testimonial est sauvegardé avant de passer au suivant
     }
+    console.log("Testimonials seeded successfully!");
   } catch (error) {
     console.error("Error while sending data:", error);
   } finally {

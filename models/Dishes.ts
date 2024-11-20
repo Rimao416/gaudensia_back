@@ -17,7 +17,7 @@ const DishesSchema = new Schema<Dishes>({
       price: { type: Number, required: true },
     },
   ],
-  category: { type: Schema.Types.ObjectId, ref: "Category", required: true },
+  category: { type: Schema.Types.ObjectId, ref: "Category", required: true }, 
 });
 
 export default model<Dishes>("Dishes", DishesSchema);

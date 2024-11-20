@@ -1,7 +1,16 @@
 import mongoose, { Model, Schema } from "mongoose";
 import User, { IUser } from "./User";
-export interface ICustomer extends IUser {}
-const customerSchema: Schema = new Schema<ICustomer>({});
+export interface ICustomer extends IUser {
+  phoneNumber: string;
+}
+const customerSchema: Schema = new Schema<ICustomer>({
+  address: {
+    type: String,
+  },
+  phoneNumber: {
+    type: String,
+  },
+});
 
 customerSchema.set("toObject", { virtuals: true });
 customerSchema.set("toJSON", { virtuals: true });
