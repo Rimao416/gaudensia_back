@@ -2,6 +2,7 @@ import { Request, Response } from "express";
 import Dishes from "../models/Dishes";
 import APIFeatures from "../utils/apiFeatures";
 import mongoose from "mongoose";
+import Translation from "../models/Translation";
 
 export const addDishe = async (req: Request, res: Response) => {
   try {
@@ -9,6 +10,53 @@ export const addDishe = async (req: Request, res: Response) => {
     return res.status(201).json(dish);
   } catch (error) {
     return res.status(500).json({ err: error });
+  }
+};
+
+export const addDishWithTranslations = async (req: Request, res: Response) => {
+  try {
+    const { name, description, prices, category, translations } = req.body;
+
+    // 1. Création du plat (Dish)
+    const newDish = new Dishes({
+      name,
+      description,
+      prices,
+      category,
+    });
+
+    // Sauvegarder le plat dans la base de données
+    const savedDish = await newDish.save();
+
+    // 2. Sauvegarde des traductions
+    for (const translation of translations) {
+      const { lang, nameTranslation, descriptionTranslation } = translation;
+
+      const newTranslation = new Translation({
+        referenceId: savedDish._id,
+        referenceType: "Dish",
+        lang,
+        fields: new Map([
+          ["name", nameTranslation],
+          ["description", descriptionTranslation],
+        ]),
+      });
+
+      // Sauvegarder la traduction
+      await newTranslation.save();
+    }
+
+    // 3. Retourner la réponse
+    res.status(201).json({
+      message: "Plat créé avec succès",
+      dish: savedDish,
+    });
+  } catch (error: unknown) {
+    console.error(error);
+    res.status(500).json({
+      message: "Erreur lors de la création du plat",
+      error: error,
+    });
   }
 };
 

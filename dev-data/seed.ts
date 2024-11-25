@@ -552,6 +552,505 @@ export const myMenu: Menu = {
   ],
 };
 
+export const myMenuEnglish: Menu = {
+  categories: [
+    {
+      categoryName: "Chicken Dishes",
+      dishes: [
+        {
+          name: "Roast Chicken",
+          description: "Oven-roasted chicken, perfectly golden brown.",
+          prices: [
+            { quantity: "Half", price: 80 },
+            { quantity: "Whole", price: 140 },
+          ],
+        },
+        {
+          name: "Fried Chicken",
+          description: "Crispy, spiced fried chicken.",
+          prices: [
+            { quantity: "Chicken Thigh", price: 50 },
+            { quantity: "Half", price: 80 },
+            { quantity: "Whole", price: 140 },
+          ],
+        },
+        {
+          name: "Chicken Mayo",
+          description: "Traditional Congolese recipe: whole chicken in a creamy mayo marinade with vegetables.",
+          prices: [
+            { quantity: "Half", price: 100 },
+            { quantity: "Whole", price: 180 },
+          ],
+        },
+        {
+          name: "Chicken Skewers",
+          description: "Traditional Congolese recipe: skewers of marinated chicken with vegetables.",
+          prices: [{ quantity: "5 Pieces", price: 40 }],
+        },
+        {
+          name: "Yassa Chicken",
+          description: "Chicken simmered in a sauce made of onions and olives, typically Senegalese.",
+          prices: [{ quantity: "Available", price: 60 }],
+        },
+        {
+          name: "Peanut Sauce Chicken",
+          description: "Tender chicken simmered in a rich peanut sauce.",
+          prices: [{ quantity: "Available", price: 60 }],
+        },
+        {
+          name: "Chicken Wings",
+          description: "Crispy chicken wings, served with a barbecue sauce.",
+          prices: [{ quantity: "5 Pieces", price: 40 }],
+        },
+        {
+          name: "Chicken Gizzards",
+          description: "Spicy, grilled chicken gizzards, tender and juicy.",
+          prices: [{ quantity: "Available", price: 35 }],
+        },
+        {
+          name: "Breaded Chicken",
+          description: "Chicken coated in golden breadcrumbs, served with fresh vegetables.",
+          prices: [{ quantity: "Available", price: 60 }],
+        },
+        {
+          name: "Chicken with Olives",
+          description: "Chicken simmered with olives and Mediterranean herbs.",
+          prices: [{ quantity: "Available", price: 60 }],
+        },
+      ],
+    },
+    {
+      categoryName: "Goat and Lamb Meat Dishes",
+      dishes: [
+        {
+          name: "Grilled Goat Meat",
+          description: "Slow-cooked goat meat, marinated in African spices.",
+          prices: [
+            { quantity: "1kg", price: 350 },
+            { quantity: "500g", price: 200 },
+          ],
+        },
+        {
+          name: "Ntaba Mayo",
+          description: "Goat meat marinated in a mayo sauce, Congolese style.",
+          prices: [
+            { quantity: "1kg", price: 350 },
+            { quantity: "500g", price: 200 },
+          ],
+        },
+        {
+          name: "Goat Meat Broth",
+          prices: [
+            { quantity: "1kg", price: 350 },
+            { quantity: "500g", price: 200 },
+          ],
+        },
+        {
+          name: "Grilled Lamb",
+          description: "Lamb grilled over charcoal or an electric barbecue, spiced with a marinated rub.",
+          prices: [
+            { quantity: "1kg", price: 350 },
+            { quantity: "500g", price: 200 },
+          ],
+        },
+        {
+          name: "Lamb Chops",
+          description: "Tender grilled lamb chops, served with a house sauce.",
+          prices: [
+            { quantity: "1kg", price: 250 },
+            { quantity: "500g", price: 150 },
+          ],
+        },
+      ],
+    },
+    {
+      categoryName: "Pork Dishes",
+      dishes: [
+        {
+          name: "Fried Pork",
+          description: "Marinated and perfectly fried pork, served with a house sauce.",
+          prices: [{ quantity: "Portion", price: 60 }],
+        },
+        {
+          name: "Roast Pork",
+          description: "Slow-roasted pork, served with a light sauce.",
+          prices: [{ quantity: "Portion", price: 60 }],
+        },
+        {
+          name: "Pork with Mayo",
+          description: "Pork in a creamy mayonnaise sauce, Congolese style.",
+          prices: [{ quantity: "500g", price: 70 }],
+        },
+        {
+          name: "Pork in Banana Leaf (Liboke ya Ngulu)",
+          description: "Pork steamed in banana leaves, marinated in traditional African spices.",
+          prices: [{ quantity: "Portion", price: 120 }],
+        },
+        {
+          name: "Sautéed Pork with Vegetables",
+          description: "Pork sautéed with crunchy vegetables, spiced to perfection.",
+          prices: [{ quantity: "500g", price: 60 }],
+        },
+        {
+          name: "Pork Skewers",
+          description: "Skewers of marinated and grilled pork.",
+          prices: [{ quantity: "6 Pieces", price: 50 }],
+        },
+        {
+          name: "Pork Ribs",
+          description: "Grilled pork ribs, served with a choice of sauce.",
+          prices: [{ quantity: "Portion", price: 70 }],
+        },
+      ],
+    },
+    {
+      categoryName: "Beef Dishes",
+      dishes: [
+        {
+          name: "Beef Skewers",
+          description: "Grilled beef skewers, marinated with fine spices.",
+          prices: [{ quantity: "5 Pieces", price: 60 }],
+        },
+        {
+          name: "Beef with Vegetables",
+          description: "Beef sautéed with crunchy vegetables and seasoned with spicy sauce.",
+          prices: [{ quantity: "500g", price: 100 }],
+        },
+        {
+          name: "Beef Broth",
+          description: "Beef slow-cooked in a flavorful broth.",
+          prices: [{ quantity: "500g", price: 100 }],
+        },
+        {
+          name: "Tripe",
+          description: "Beef tripe simmered in a spicy tomato sauce.",
+          prices: [{ quantity: "500g", price: 100 }],
+        },
+        {
+          name: "Roast Beef",
+          description: "Slow-roasted beef served with a rich sauce.",
+          prices: [{ quantity: "500g", price: 120 }],
+        },
+        {
+          name: "Beef Kidneys",
+          description: "Beef kidneys served in a tomato sauce or sautéed with vegetables.",
+          prices: [{ quantity: "500g", price: 50 }],
+        },
+        {
+          name: "Beef Liver",
+          description: "Beef liver in a tomato sauce or sautéed with vegetables.",
+          prices: [{ quantity: "500g", price: 50 }],
+        },
+        {
+          name: "Beef Meatballs",
+          description: "Juicy beef meatballs served in a spicy tomato sauce.",
+          prices: [{ quantity: "6 Pieces", price: 50 }],
+        },
+        {
+          name: "Bird's Nest",
+          description: "Minced meat and egg shaped like a nest.",
+          prices: [{ quantity: "3 Pieces", price: 50 }],
+        },
+      ],
+    },
+    {
+      categoryName: "Fish Dishes",
+      dishes: [
+        {
+          name: "Tilapia",
+          description: "Grilled or fried tilapia, served with a lemon sauce.",
+          prices: [{ quantity: "1 Piece", price: 80 }],
+        },
+        {
+          name: "Thomson (Mackerel)",
+          description: "Whole grilled or fried mackerel, marinated with herbs and spices.",
+          prices: [{ quantity: "1 Piece", price: 70 }],
+        },
+        {
+          name: "Catfish",
+          description: "Fried or grilled catfish, served with a spicy sauce.",
+          prices: [{ quantity: "1 Piece", price: 100 }],
+        },
+        {
+          name: "Catfish in Banana Leaf",
+          description: "Catfish steamed in banana leaves, marinated in spices.",
+          prices: [{ quantity: "1 Piece", price: 120 }],
+        },
+      ],
+    },
+    {
+      categoryName: "Vegetarian Dishes",
+      dishes: [
+        {
+          name: "Vegetable Rice",
+          description: "Rice cooked with a variety of vegetables and spices.",
+          prices: [{ quantity: "1 Serving", price: 30 }],
+        },
+        {
+          name: "Vegetable Rice with Cashews",
+          description: "Rice flavored with vegetables and cashews.",
+          prices: [{ quantity: "1 Serving", price: 30 }],
+        },
+        {
+          name: "Vegetable Mafé",
+          description: "Vegetables cooked in a peanut butter sauce.",
+          prices: [{ quantity: "1 Serving", price: 40 }],
+        },
+        {
+          name: "Vegetable Soup",
+          description: "Light vegetable soup with broth.",
+          prices: [{ quantity: "1 Serving", price: 30 }],
+        },
+        {
+          name: "Spiced Chickpeas",
+          description: "Chickpeas cooked with warm spices.",
+          prices: [{ quantity: "1 Serving", price: 30 }],
+        },
+        {
+          name: "Spinach with Palm Oil",
+          description: "Spinach cooked in palm oil, served with rice.",
+          prices: [{ quantity: "1 Serving", price: 30 }],
+        },
+        {
+          name: "Sweet Potato Mash",
+          description: "Sweet, creamy mash made from sweet potatoes.",
+          prices: [{ quantity: "1 Serving", price: 40 }],
+        },
+      ],
+    },
+  ],
+};
+
+export const myMenuPolski: Menu = {
+  categories: [
+    {
+      categoryName: "Dania z Kurczaka",
+      dishes: [
+        {
+          name: "Pieczony Kurczak",
+          description: "Kurczak pieczony w piekarniku, idealnie złocisty.",
+          prices: [
+            { quantity: "Połowa", price: 80 },
+            { quantity: "Cały", price: 140 },
+          ],
+        },
+        {
+          name: "Kurczak Smażony",
+          description: "Chrupiący, przyprawiony smażony kurczak.",
+          prices: [
+            { quantity: "Udo", price: 50 },
+            { quantity: "Połowa", price: 80 },
+            { quantity: "Cały", price: 140 },
+          ],
+        },
+        {
+          name: "Kurczak Mayo",
+          description: "Tradycyjny przepis kongolski: cały kurczak w kremowej marynacie z majonezem i warzywami.",
+          prices: [
+            { quantity: "Połowa", price: 100 },
+            { quantity: "Cały", price: 180 },
+          ],
+        },
+        {
+          name: "Szaszłyki Kurczaka",
+          description: "Tradycyjny przepis kongolski: szaszłyki z marynowanego kurczaka z warzywami.",
+          prices: [{ quantity: "5 Sztuk", price: 40 }],
+        },
+        {
+          name: "Kurczak Yassa",
+          description: "Kurczak gotowany w sosie z cebuli i oliwek, tradycyjny przepis senegalski.",
+          prices: [{ quantity: "Dostępne", price: 60 }],
+        },
+        {
+          name: "Kurczak w Sosie Orzechowym",
+          description: "Delikatny kurczak gotowany w bogatym sosie orzechowym.",
+          prices: [{ quantity: "Dostępne", price: 60 }],
+        },
+        {
+          name: "Skrzydełka Kurczaka",
+          description: "Chrupiące skrzydełka kurczaka, podawane z sosem BBQ.",
+          prices: [{ quantity: "5 Sztuk", price: 40 }],
+        },
+        {
+          name: "Podroby Kurczaka",
+          description: "Pikantne, grillowane podroby kurczaka, delikatne i soczyste.",
+          prices: [{ quantity: "Dostępne", price: 35 }],
+        },
+        {
+          name: "Kurczak Panierowany",
+          description: "Kurczak panierowany na złocisty kolor, podawany z świeżymi warzywami.",
+          prices: [{ quantity: "Dostępne", price: 60 }],
+        },
+        {
+          name: "Kurczak z Oliwkami",
+          description: "Kurczak gotowany z oliwkami i ziołami śródziemnomorskimi.",
+          prices: [{ quantity: "Dostępne", price: 60 }],
+        },
+      ],
+    },
+    {
+      categoryName: "Dania z Kozy i Jagnięciny",
+      dishes: [
+        {
+          name: "Grillowane Mięso z Kozy",
+          description: "Mięso z kozy gotowane na wolnym ogniu, marynowane w afrykańskich przyprawach.",
+          prices: [
+            { quantity: "1kg", price: 350 },
+            { quantity: "500g", price: 200 },
+          ],
+        },
+        {
+          name: "Ntaba Mayo",
+          description: "Mięso z kozy marynowane w sosie majonezowym, w stylu kongolskim.",
+          prices: [
+            { quantity: "1kg", price: 350 },
+            { quantity: "500g", price: 200 },
+          ],
+        },
+        {
+          name: "Rosół z Kozy",
+          prices: [
+            { quantity: "1kg", price: 350 },
+            { quantity: "500g", price: 200 },
+          ],
+        },
+        {
+          name: "Grillowana Jagnięcina",
+          description: "Jagnięcina grillowana na węglu drzewnym lub elektrycznym grillu, przyprawiona marynatą.",
+          prices: [
+            { quantity: "1kg", price: 350 },
+            { quantity: "500g", price: 200 },
+          ],
+        },
+        {
+          name: "Kotleciki Jagnięce",
+          description: "Delikatne grillowane kotleciki jagnięce, podawane z sosem domowym.",
+          prices: [
+            { quantity: "1kg", price: 250 },
+            { quantity: "500g", price: 150 },
+          ],
+        },
+      ],
+    },
+    {
+      categoryName: "Dania z Wieprzowiny",
+      dishes: [
+        {
+          name: "Smażona Wieprzowina",
+          description: "Marynowana i perfekcyjnie smażona wieprzowina, podawana z sosem domowym.",
+          prices: [{ quantity: "Porcja", price: 60 }],
+        },
+        {
+          name: "Pieczona Wieprzowina",
+          description: "Powoli pieczona wieprzowina, podawana z lekkim sosem.",
+          prices: [{ quantity: "Porcja", price: 60 }],
+        },
+        {
+          name: "Wieprzowina z Majonezem",
+          description: "Wieprzowina w kremowym sosie majonezowym, w stylu kongolskim.",
+          prices: [{ quantity: "500g", price: 70 }],
+        },
+        {
+          name: "Wieprzowina w Liściu Bananowca (Liboke ya Ngulu)",
+          description: "Wieprzowina gotowana w liściach bananowca, marynowana w tradycyjnych afrykańskich przyprawach.",
+          prices: [{ quantity: "Porcja", price: 120 }],
+        },
+        {
+          name: "Smażona Wieprzowina z Warzywami",
+          description: "Wieprzowina smażona z chrupiącymi warzywami, doprawiona do smaku.",
+          prices: [{ quantity: "500g", price: 60 }],
+        },
+        {
+          name: "Szaszłyki Wieprzowe",
+          description: "Szaszłyki z marynowanej i grillowanej wieprzowiny.",
+          prices: [{ quantity: "6 Sztuk", price: 50 }],
+        },
+        {
+          name: "Żeberka Wieprzowe",
+          description: "Grillowane żeberka wieprzowe, podawane z wyborem sosu.",
+          prices: [{ quantity: "Porcja", price: 70 }],
+        },
+      ],
+    },
+    {
+      categoryName: "Dania z Wołowiny",
+      dishes: [
+        {
+          name: "Szaszłyki Wołowe",
+          description: "Grillowane szaszłyki wołowe, marynowane w wyśmienitych przyprawach.",
+          prices: [{ quantity: "5 Sztuk", price: 60 }],
+        },
+        {
+          name: "Wołowina z Warzywami",
+          description: "Wołowina smażona z chrupiącymi warzywami i doprawiona pikantnym sosem.",
+          prices: [{ quantity: "500g", price: 100 }],
+        },
+        {
+          name: "Rosół Wołowy",
+          description: "Wołowina gotowana powoli w aromatycznym rosole.",
+          prices: [{ quantity: "500g", price: 100 }],
+        },
+        {
+          name: "Flaki",
+          description: "Wołowe flaki gotowane w pikantnym sosie pomidorowym.",
+          prices: [{ quantity: "500g", price: 100 }],
+        },
+        {
+          name: "Pieczona Wołowina",
+          description: "Powoli pieczona wołowina, podawana z bogatym sosem.",
+          prices: [{ quantity: "500g", price: 120 }],
+        },
+        {
+          name: "Wątroba Wołowa",
+          description: "Wątroba wołowa w sosie pomidorowym lub smażona z warzywami.",
+          prices: [{ quantity: "500g", price: 50 }],
+        },
+        {
+          name: "Kotlety Wołowe",
+          description: "Soczyste kotlety wołowe podawane w pikantnym sosie pomidorowym.",
+          prices: [{ quantity: "6 Sztuk", price: 50 }],
+        },
+        {
+          name: "Gniazdo",
+          description: "Mielone mięso i jajko w kształcie gniazda.",
+          prices: [{ quantity: "3 Sztuki", price: 50 }],
+        },
+      ],
+    },
+    {
+      categoryName: "Dania Rybne",
+      dishes: [
+        {
+          name: "Tilapia",
+          description: "Grillowana lub smażona tilapia, podawana z sosem cytrynowym.",
+          prices: [{ quantity: "Porcja", price: 80 }],
+        },
+        {
+          name: "Mamba",
+          description: "Grillowana mamba, ryba wędzona w stylu afrykańskim.",
+          prices: [{ quantity: "Porcja", price: 70 }],
+        },
+      ],
+    },
+    {
+      categoryName: "Dania Wegetariańskie",
+      dishes: [
+        {
+          name: "Puree z Batatów",
+          description: "Słodkie, kremowe puree z batatów.",
+          prices: [{ quantity: "1 Porcja", price: 40 }],
+        },
+        {
+          name: "Fufu",
+          description: "Tradycyjny kongolski fufu, gotowany z mąki maniokowej.",
+          prices: [{ quantity: "1 Porcja", price: 50 }],
+        },
+      ],
+    },
+  ],
+};
+
+
 // WHY CHOOSE U
 export const TestimonialsPeople = [
   "I'll definetely like ut, this taste really really good, she deserves 5 Stars",

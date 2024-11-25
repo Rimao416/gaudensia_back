@@ -10,6 +10,7 @@
     "start": "node ./build/app.js",
     "seed:menu": "ts-node-dev ./dev-data/import-dev-data.ts --seedMenu",
     "seed:testimonial": "ts-node-dev ./dev-data/import-dev-data.ts --seedTestimonial",
+    "thanos": "ts-node-dev ./dev-data/import-dev-data.ts --thanos",
     "build": "tsc"
   },
   "keywords": [],
