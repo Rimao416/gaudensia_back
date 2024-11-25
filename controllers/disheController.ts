@@ -17,11 +17,9 @@ export const getAllDishes = async (req: Request, res: Response) => {
     const features = new APIFeatures(
       Dishes.find().populate("category"),
       req.query
-    )
-      .filter()
-      .sort()
-      .limitFields()
-      .paginate();
+    );
+    await features.search(); // Recherche sur `name`
+    features.filter().sort().limitFields().paginate();
 
     const dishes = await features.query.exec(); // Exécute la requête
 

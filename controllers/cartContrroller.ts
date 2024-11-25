@@ -4,7 +4,6 @@ import CartModel from "../models/Cart";
 
 export const confirmOrder = async (req: AuthRequest, res: Response) => {
   try {
-    console.log("NA KOMI");
     console.log(req.body); // Affiche les données envoyées par la requête dans la console
 
     const { items, totalPrice, allergies, deliveryDetails, deliveryAddress } =

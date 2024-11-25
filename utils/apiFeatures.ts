@@ -1,5 +1,6 @@
 import { Query } from "mongoose";
 import { ParsedQs } from "qs";
+import fuzzysort from "fuzzysort";
 
 class APIFeatures<T> {
   query: Query<T[], T>;
@@ -9,6 +10,28 @@ class APIFeatures<T> {
     this.query = query;
     this.queryString = queryString as { [key: string]: string | undefined };
   }
+  async search() {
+    if (this.queryString.search) {
+      const searchValue = this.queryString.search;
+  
+      // Étape 1 : Récupérer les documents depuis la base avec les champs nécessaires
+      const allDocs = await this.query.model.find().select("name _id");
+      console.log("Documents récupérés :", allDocs);
+  
+      // Étape 2 : Effectuer la recherche avec Fuzzysort sur le champ `name`
+      const results = fuzzysort.go(searchValue, allDocs, { key: "name" });
+      console.log("Résultats Fuzzysort :", results);
+  
+      // Étape 3 : Extraire les IDs des correspondances
+      const matchingIds = results.map((result) => result.obj._id);
+      console.log("IDs correspondants :", matchingIds);
+  
+      // Étape 4 : Filtrer les documents
+      this.query = this.query.find({ _id: { $in: matchingIds } });
+    }
+    return this;
+  }
+  
 
   filter() {
     const queryObj = { ...this.queryString };
