@@ -1,4 +1,4 @@
-import mongoose, { Model, Schema } from "mongoose";
+import  { Schema } from "mongoose";
 import User, { IUser } from "./User";
 export interface ICustomer extends IUser {
   phoneNumber: string;

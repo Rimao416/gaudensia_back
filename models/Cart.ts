@@ -20,7 +20,7 @@ const cartSchema = new Schema({
   createdAt: { type: Date, default: Date.now },
 });
 
-// Définir l'interface TypeScript pour le modèle CartItem
+// Définir l'interface Ty peScript pour le modèle CartItem
 export interface CartItem {
   id: string;
   name: string;

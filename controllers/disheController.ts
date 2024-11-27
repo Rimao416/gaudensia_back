@@ -109,7 +109,7 @@ export const deleteDish = async (req: Request, res: Response) => {
   }
 };
 
-export const getMenuByCategories = async (req: Request, res: Response) => {
+export const getMenuByCategories = async (_req: Request, res: Response) => {
   try {
     const categoriesWithMenus = await Dishes.aggregate([
       {

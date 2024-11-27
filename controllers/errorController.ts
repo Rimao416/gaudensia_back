@@ -76,10 +76,10 @@ const sendErrorProd = (err: CustomError, res: Response): void => {
 
 const globalErrorHandler = (
   err: CustomError,
-  req: Request,
+  _req: Request,
   res: Response,
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  next: NextFunction
+  _next: NextFunction
 ): void => {
   err.statusCode = err.statusCode || 500;
   err.status = err.status || "error";

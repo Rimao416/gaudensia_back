@@ -1,9 +1,8 @@
 import { Request, Response } from "express";
 import Category from "../models/Category";
-import Dishes from "../models/Dishes";
 
 // Recherche de toutes les catégorie
-export const getCategories = async (req: Request, res: Response) => {
+export const getCategories = async (_req: Request, res: Response) => {
   const categories = await Category.find();
   try {
     return res.status(200).json(categories);

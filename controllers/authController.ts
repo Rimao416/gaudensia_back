@@ -2,8 +2,6 @@ import { NextFunction, Request, Response } from "express";
 import catchAsync from "../utils/catchAsync";
 import jwt, { JwtPayload } from "jsonwebtoken";
 import User from "../models/User";
-import customerModel from "../models/Customer";
-import AppError from "../utils/appError";
 import mongoose from "mongoose";
 interface DecodedToken extends JwtPayload {
   userId: string;

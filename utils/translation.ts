@@ -1,63 +1,35 @@
-import { NextFunction } from "express";
-import Dishes from "../models/Dishes";
+import { Request, Response, NextFunction } from "express";
 import Translation from "../models/Translation";
 
-export const getDishWithTranslation = async (dishId: string, lang: string) => {
-  const dish = await Dishes.findById(dishId);
-  if (!dish) throw new Error("Plat introuvable");
-
-  const translation = await Translation.findOne({
-    referenceId: dish._id,
-    referenceType: "Dishes",
-    lang,
-  });
-
-  return {
-    _id: dish._id,
-    name: translation?.fields["name"] || "Nom non disponible",
-    description:
-      translation?.fields["description"] || "Description non disponible",
-    category: dish.category,
-    prices: dish.prices,
-  };
-};
-
-export interface TranslationResponse extends Response {
-  locals: {
-    lang: string;
-    getTranslation: (
-      referenceId: string,
-      referenceType: string
-    ) => Promise<{ [key: string]: string }>;
-  };
-}
-
-export interface TranslationRequest extends Request {
-  query: {
-    lang?: string;
-  };
-}
-
+// Middleware global pour la gestion des traductions
 export const translationMiddleware = async (
-  req: TranslationRequest,
-  res: TranslationResponse,
+  req: Request,
+  res: Response,
   next: NextFunction
 ) => {
-  const lang = req.query.lang || "fr"; // Défaut : français
-  res.locals.lang = lang;
+  try {
+    // Langue par défaut (ex. "fr") si aucune n’est fournie dans la requête
+    const lang = (req.query.lang as string) || "fr";
+    res.locals.lang = lang;
+    console.log(req.query.lang);
 
-  // Injecter une méthode pour récupérer les traductions
-  res.locals.getTranslation = async (
-    referenceId: string,
-    referenceType: string
-  ) => {
-    const translation = await Translation.findOne({
-      referenceId,
-      referenceType,
-      lang,
-    });
-    return translation?.fields || {};
-  };
+    // Méthode pour récupérer les traductions en fonction de la langue
+    res.locals.getTranslation = async (
+      referenceId: string,
+      referenceType: string
+    ) => {
+      const translation = await Translation.findOne({
+        referenceId,
+        referenceType,
+        lang,
+      }).lean();
 
-  next();
+      return translation?.fields || {};
+    };
+
+    next();
+  } catch (error) {
+    console.error("Error in translation middleware:", error);
+    res.status(500).json({ message: "Internal server error" });
+  }
 };

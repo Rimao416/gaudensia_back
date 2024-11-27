@@ -1,4 +1,4 @@
-import { Request, Response } from "express";
+import {  Response } from "express";
 import { AuthRequest } from "./authController";
 import CartModel from "../models/Cart";
 
