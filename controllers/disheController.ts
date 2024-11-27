@@ -79,11 +79,16 @@ export const getAllDishes = async (req: Request, res: Response) => {
 
 export const getDishById = async (req: Request, res: Response) => {
   const { id } = req.params;
+  const getTranslatedDish = res.locals.getTranslatedDish;
+  console.log(getTranslatedDish)
+
   try {
-    const dish = await Dishes.findById(id);
-    return res.status(200).json(dish);
+    const dish = await getTranslatedDish(id); // Fusionne données + traduction
+    res.json(dish);
   } catch (error) {
-    return res.status(500).json({ err: error });
+
+    console.error("Erreur lors de la récupération du plat :", error);
+    res.status(404).json({ message: "error.message" });
   }
 };
 
@@ -210,37 +215,15 @@ export const searchByCategories = async (req: Request, res: Response) => {
 
 export const singleDishes = async (req: Request, res: Response) => {
   const { id } = req.params;
-
-  if (!id) {
-    return res.status(400).json({
-      status: "error",
-      message: "Vous devez passer l'id en paramètre.",
-    });
-  }
-
-  // Vérifie si l'ID est un ObjectId valide
-  if (!mongoose.Types.ObjectId.isValid(id)) {
-    return res.status(400).json({
-      status: "error",
-      message: "L'ID fourni est invalide.",
-    });
-  }
+  const getTranslatedDish = res.locals.getTranslatedDish;
+  console.log("SAKYT")
+  console.log(getTranslatedDish)
 
   try {
-    const response = await Dishes.findById(id);
-
-    if (!response) {
-      return res.status(404).json({
-        status: "error",
-        message: "Plat non trouvé.",
-      });
-    }
-
-    return res.status(200).json(response);
-  } catch (error) {
-    return res.status(500).json({
-      status: "error",
-      message: "Une erreur est survenue lors de la récupération du plat.",
-    });
+    const dish = await getTranslatedDish(id); // Fusionne données + traduction
+    res.json(dish);
+  } catch (error:unknown) {
+    console.error("Erreur lors de la récupération du plat :", error);
+    res.status(404).json({ message: "error.message" });
   }
 };

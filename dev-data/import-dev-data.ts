@@ -9,7 +9,7 @@ import {
 import Category from "../models/Category";
 import Dishes from "../models/Dishes";
 import Testimonials from "../models/Testimonials";
-import { faker } from "@faker-js/faker";
+// import { faker } from "@faker-js/faker";
 import Translation from "../models/Translation";
 dotenv.config({ path: "./config.env" });
 
@@ -62,8 +62,6 @@ const seedMenu = async () => {
         // Créer les plats pour cette catégorie
         for (const dish of categoryMenu.dishes) {
           const newDish = new Dishes({
-            name: dish.name,
-            description: dish.description,
             prices: dish.prices,
             category: savedCategory._id,
           });
@@ -72,7 +70,7 @@ const seedMenu = async () => {
           // Créer la traduction du plat
           const dishTranslation = new Translation({
             referenceId: savedDish._id,
-            referenceType: "Dish",
+            referenceType: "Dishes",
             lang: lang, // Langue actuelle
             fields: new Map([
               ["name", dish.name], // Traduction du nom du plat

@@ -1,35 +1,42 @@
 import { Request, Response, NextFunction } from "express";
 import Translation from "../models/Translation";
+import Dishes from "../models/Dishes";
 
-// Middleware global pour la gestion des traductions
 export const translationMiddleware = async (
   req: Request,
   res: Response,
   next: NextFunction
 ) => {
   try {
-    // Langue par défaut (ex. "fr") si aucune n’est fournie dans la requête
     const lang = (req.query.lang as string) || "fr";
     res.locals.lang = lang;
-    console.log(req.query.lang);
+    // Méthode utilitaire pour récupérer un plat traduit
+    res.locals.getTranslatedDish = async (dishId: string) => {
+      console.log("Le dish est :", dishId);
+      const dish = await Dishes.findById(dishId).lean();
+      if (!dish) throw new Error("Plat introuvable");
 
-    // Méthode pour récupérer les traductions en fonction de la langue
-    res.locals.getTranslation = async (
-      referenceId: string,
-      referenceType: string
-    ) => {
+      // Récupérer les traductions
       const translation = await Translation.findOne({
-        referenceId,
-        referenceType,
+        referenceId: dish._id,
+        referenceType: "Dishes",
         lang,
       }).lean();
+      console.log("La translation", translation);
 
-      return translation?.fields || {};
+      // Vérifiez si la traduction existe
+      if (!translation) throw new Error("Traduction introuvable");
+
+      // Retourner les données fusionnées (plat + traduction)
+      return {
+        ...dish,
+        ...translation.fields, // Ajout des champs traduits
+      };
     };
 
     next();
   } catch (error) {
-    console.error("Error in translation middleware:", error);
-    res.status(500).json({ message: "Internal server error" });
+    console.error("Erreur dans le middleware de traduction :", error);
+    res.status(500).json({ message: "Erreur interne du serveur" });
   }
 };
