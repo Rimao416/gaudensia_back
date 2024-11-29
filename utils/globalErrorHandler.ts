@@ -1,7 +1,7 @@
 // middlewares/globalErrorHandler.ts
 import { Request, Response, NextFunction } from "express";
 import AppError from "../utils/appError";
-import { getErrorMessage } from "./errorMessages";
+import { getErrorMessage, Lang } from "./errorMessages";
 
 interface CastError extends Error {
   path: string;
@@ -17,7 +17,7 @@ interface CustomError extends Error {
     placeholders?: { [key: string]: string }; // Ajout de la propriété placeholders
   }
 
-const handleCastErrorDB = (err: CastError, lang: string): AppError => {
+const handleCastErrorDB = (err: CastError, lang: Lang): AppError => {
   const message = getErrorMessage(lang, "validation", "invalidId", {
     field: err.path,
     value: err.value,
@@ -25,29 +25,29 @@ const handleCastErrorDB = (err: CastError, lang: string): AppError => {
   return new AppError(message, 400);
 };
 
-const handleDuplicateErrorDB = (err: CustomError, lang: string): AppError => {
+const handleDuplicateErrorDB = (err: CustomError, lang: Lang): AppError => {
   const value = err.errmsg?.match(/(["'])(\\?.)*?\1/)?.[0] || "";
   const message = getErrorMessage(lang, "database", "duplicate", { value });
   return new AppError(message, 400);
 };
 
-const handleValidationErrorDB = (err: CustomError, lang: string): AppError => {
+const handleValidationErrorDB = (err: CustomError, lang: Lang): AppError => {
   const errors = Object.values(err.errors || {}).map((el) => el.message).join(". ");
   const message = getErrorMessage(lang, "validation", "invalidInput", { errors });
   return new AppError(message, 400);
 };
 
-const handleJWTError = (lang: string): AppError => {
+const handleJWTError = (lang: Lang): AppError => {
   const message = getErrorMessage(lang, "auth", "invalidToken");
   return new AppError(message, 401);
 };
 
-const handleJWTExpiredError = (lang: string): AppError => {
+const handleJWTExpiredError = (lang: Lang): AppError => {
   const message = getErrorMessage(lang, "auth", "tokenExpired");
   return new AppError(message, 401);
 };
 
-const sendError = (err: CustomError, lang: string, res: Response): void => {
+const sendError = (err: CustomError, lang: Lang, res: Response): void => {
   if (err.isOperational) {
     const message = getErrorMessage(lang, "server", err.message, err.placeholders);
     res.status(err.statusCode || 500).json({ status: err.status || "error", message });
@@ -61,7 +61,7 @@ const sendError = (err: CustomError, lang: string, res: Response): void => {
 
 export const globalErrorHandler = (
   err: CustomError,
-  req: Request,
+  _req: Request,
   res: Response,
   _next: NextFunction
 ): void => {

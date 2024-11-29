@@ -1,8 +1,6 @@
 import express, { Application } from "express";
 import AppError from "./utils/appError";
-
 // const globalErrorHandler = require("./controllers/errorController");
-import globalErrorHandler from "./controllers/errorController";
 // import userRouter from "./routes/userRoutes";
 import cookieParser from "cookie-parser";
 import categoryRoutes from "./routes/categoryRoutes";
@@ -16,6 +14,7 @@ import translationRoutes from "./routes/translationRoutes"
 // const authRoute = require("./routes/auth");
 const app: Application = express();
 import cors from "cors";
+import { globalErrorHandler } from "./utils/globalErrorHandler";
 // 1) MIDDLEWARE
 
 app.use(cookieParser()); // Nécessaire pour lire les cookies
@@ -63,6 +62,7 @@ app.all("*", (req, _res, next) => {
 });
 
 app.use(globalErrorHandler);
+
 
 // 4) SERVER
 
