@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import Dishes from "../models/Dishes";
-import APIFeatures from "../utils/apiFeatures";
+// import APIFeatures from "../utils/apiFeatures";
 import mongoose from "mongoose";
 import Translation from "../models/Translation";
 
@@ -60,22 +60,45 @@ export const addDishWithTranslations = async (req: Request, res: Response) => {
   }
 };
 
-export const getAllDishes = async (req: Request, res: Response) => {
+export const getAllDishes = async (_req: Request, res: Response) => {
   try {
-    const features = new APIFeatures(
-      Dishes.find().populate("category"),
-      req.query
-    );
-    await features.search(); // Recherche sur `name`
-    features.filter().sort().limitFields().paginate();
+    const { getAllTranslated } = res.locals;
+    console.log(getAllTranslated)
 
-    const dishes = await features.query.exec(); // Exécute la requête
+    // Utilisation de la méthode getAllTranslated pour récupérer les plats traduits
+    const translatedDishes = await getAllTranslated(Dishes, "Dishes");
 
-    return res.status(200).json(dishes);
+    res.status(200).json(translatedDishes);
   } catch (error) {
-    return res.status(500).json({ err: error });
+    console.error("Erreur lors de la récupération des plats traduits :", error);
+    res.status(500).json({ message: "Erreur interne du serveur" });
   }
 };
+
+
+export const singleDishes = async (req: Request, res: Response) => {
+ 
+
+  try {
+  const { getTranslatedById } = res.locals;
+    const dishId = req.params.id;
+
+    // Utilisation de la méthode getTranslatedById pour récupérer un plat traduit
+    const translatedDish = await getTranslatedById(Dishes, dishId, "Dishes");
+
+    if (!translatedDish) {
+      return res.status(404).json({ message: "Plat introuvable" });
+    }
+
+    res.status(200).json(translatedDish);
+  } catch (error:unknown) {
+    console.error("Erreur lors de la récupération du plat :", error);
+    res.status(404).json({ message: "error.message" });
+  }
+};
+
+
+
 
 export const getDishById = async (req: Request, res: Response) => {
   const { id } = req.params;
@@ -213,17 +236,3 @@ export const searchByCategories = async (req: Request, res: Response) => {
   }
 };
 
-export const singleDishes = async (req: Request, res: Response) => {
-  const { id } = req.params;
-  const getTranslatedDish = res.locals.getTranslatedDish;
-  console.log("SAKYT")
-  console.log(getTranslatedDish)
-
-  try {
-    const dish = await getTranslatedDish(id); // Fusionne données + traduction
-    res.json(dish);
-  } catch (error:unknown) {
-    console.error("Erreur lors de la récupération du plat :", error);
-    res.status(404).json({ message: "error.message" });
-  }
-};

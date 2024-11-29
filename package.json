@@ -8,8 +8,10 @@
     "prod": "cross-env NODE_ENV=production ts-node-dev --rs --poll server.ts",
     "dev": "ts-node-dev --rs --poll index.ts",
     "start": "node ./build/app.js",
+    "seed:category": "ts-node-dev ./dev-data/import-dev-data.ts --seedCategory",
     "seed:menu": "ts-node-dev ./dev-data/import-dev-data.ts --seedMenu",
     "seed:testimonial": "ts-node-dev ./dev-data/import-dev-data.ts --seedTestimonial",
+    "seed:translation": "ts-node-dev ./dev-data/import-dev-data.ts --seedTranslation",
     "thanos": "ts-node-dev ./dev-data/import-dev-data.ts --thanos",
     "build": "tsc"
   },

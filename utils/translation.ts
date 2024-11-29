@@ -1,6 +1,9 @@
 import { Request, Response, NextFunction } from "express";
+import { Model, Document, FilterQuery } from "mongoose";
 import Translation from "../models/Translation";
-import Dishes from "../models/Dishes";
+
+// Définir un type générique pour les données traduites
+type Translated<T> = T & { [key: string]: any }; // Permet l'ajout de champs traduits
 
 export const translationMiddleware = async (
   req: Request,
@@ -8,30 +11,52 @@ export const translationMiddleware = async (
   next: NextFunction
 ) => {
   try {
-    const lang = (req.query.lang as string) || "fr";
+    const lang = (req.query.lang as string) || "fr"; // Langue par défaut
     res.locals.lang = lang;
-    // Méthode utilitaire pour récupérer un plat traduit
-    res.locals.getTranslatedDish = async (dishId: string) => {
-      console.log("Le dish est :", dishId);
-      const dish = await Dishes.findById(dishId).lean();
-      if (!dish) throw new Error("Plat introuvable");
 
-      // Récupérer les traductions
+    // Méthode utilitaire pour traduire un document par ID
+    res.locals.getTranslatedById = async <T extends Document>(
+      model: Model<T>,
+      referenceId: string,
+      referenceType: string
+    ): Promise<Translated<T> | null> => {
+      const originalData = await model.findById(referenceId).lean();
+      if (!originalData) throw new Error(`${referenceType} introuvable`);
+
       const translation = await Translation.findOne({
-        referenceId: dish._id,
-        referenceType: "Dishes",
+        referenceId: originalData._id,
+        referenceType,
         lang,
       }).lean();
-      console.log("La translation", translation);
 
-      // Vérifiez si la traduction existe
-      if (!translation) throw new Error("Traduction introuvable");
+      return translation
+        ? { ...originalData, ...translation.fields } as Translated<T> // Cast explicite vers le type Translated<T>
+        : (originalData as Translated<T>); // Cast explicite vers Translated<T>
+    };
 
-      // Retourner les données fusionnées (plat + traduction)
-      return {
-        ...dish,
-        ...translation.fields, // Ajout des champs traduits
-      };
+    // Méthode utilitaire pour traduire plusieurs documents
+    res.locals.getAllTranslated = async <T extends Document>(
+      model: Model<T>,
+      referenceType: string,
+      filter: FilterQuery<T> = {} // Utilisation de FilterQuery<T> au lieu de Partial<T>
+    ): Promise<Translated<T>[]> => {
+      const originalDataList = await model.find(filter).lean();
+
+      const translations = await Translation.find({
+        referenceId: { $in: originalDataList.map((data: any) => data._id) },
+        referenceType,
+        lang,
+      }).lean();
+
+      return originalDataList.map((originalData: any) => {
+        const translation = translations.find(
+          (trans) => String(trans.referenceId) === String(originalData._id)
+        );
+
+        return translation
+          ? { ...originalData, ...translation.fields } as Translated<T> // Cast explicite vers Translated<T>
+          : (originalData as Translated<T>); // Cast explicite vers Translated<T>
+      });
     };
 
     next();

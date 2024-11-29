@@ -9,6 +9,8 @@ import {
 import Category from "../models/Category";
 import Dishes from "../models/Dishes";
 import Testimonials from "../models/Testimonials";
+import fs from "fs";
+import path from "path";
 // import { faker } from "@faker-js/faker";
 import Translation from "../models/Translation";
 dotenv.config({ path: "./config.env" });
@@ -19,6 +21,9 @@ const databasePassword: string = process.env.DATABASE_PASSWORD ?? "";
 const DB = database.replace("<password>", databasePassword);
 mongoose.set("strictQuery", true);
 
+const fileFr = path.join(__dirname, "menuFr.json");
+const fileEn = path.join(__dirname, "menuEn.json");
+const filePl = path.join(__dirname, "menuPl.json");
 const connectDB = async () => {
   try {
     await mongoose.connect(DB); // Utilisation d'await pour garantir la connexion
@@ -29,60 +34,148 @@ const connectDB = async () => {
   }
 };
 
-const seedMenu = async () => {
+const seedCategory = async () => {
   try {
-    // Les différentes traductions des menus
     const languages = {
       fr: myMenu,
       en: myMenuEnglish,
       pl: myMenuPolski,
     };
 
-    // Boucle sur les langues
-    for (const [lang, menu] of Object.entries(languages)) {
-      // Créer les catégories et plats pour chaque langue
-      for (const categoryMenu of menu.categories) {
-        // Créer la catégorie
-        const category = new Category({
-          name: categoryMenu.categoryName,
-        });
-        const savedCategory = await category.save(); // Sauvegarde de la catégorie
+    for (let i = 0; i < languages.fr.categories.length; i++) {
+      // const lang = Object.keys(languages)[i];
 
-        // Créer la traduction de la catégorie
-        const categoryTranslation = new Translation({
-          referenceId: savedCategory._id,
-          referenceType: "Category",
-          lang: lang, // Langue actuelle
-          fields: new Map([
-            ["name", categoryMenu.categoryName], // Traduction du nom de la catégorie
-          ]),
-        });
-        await categoryTranslation.save();
+      const response = await new Category({
+        name: languages.fr.categories[i].categoryName,
+      }).save();
+      const response_id = response._id;
+      // Sauvegarder les translations des catégories
+      await new Translation({
+        referenceId: response_id,
+        referenceType: "Category",
+        lang: "fr",
+        fields: {
+          name: languages.fr.categories[i].categoryName,
+        },
+      }).save();
 
-        // Créer les plats pour cette catégorie
-        for (const dish of categoryMenu.dishes) {
-          const newDish = new Dishes({
-            prices: dish.prices,
-            category: savedCategory._id,
-          });
-          const savedDish = await newDish.save(); // Sauvegarde du plat
+      await new Translation({
+        referenceId: response_id,
+        referenceType: "Category",
+        lang: "en",
+        fields: {
+          name: languages.en.categories[i].categoryName,
+        },
+      }).save();
 
-          // Créer la traduction du plat
-          const dishTranslation = new Translation({
-            referenceId: savedDish._id,
-            referenceType: "Dishes",
-            lang: lang, // Langue actuelle
-            fields: new Map([
-              ["name", dish.name], // Traduction du nom du plat
-              ["description", dish.description], // Traduction de la description du plat
-            ]),
-          });
-          await dishTranslation.save();
+      await new Translation({
+        referenceId: response_id,
+        referenceType: "Category",
+        lang: "pl",
+        fields: {
+          name: languages.pl.categories[i].categoryName,
+        },
+      }).save();
+    }
+
+    console.log("Menu seedé avec succès dans 3 langues !");
+  } catch (error) {
+    console.error("Erreur lors du seed :", error);
+  } finally {
+    await mongoose.connection.close();
+    console.log("Connexion à la base de données fermée.");
+  }
+};
+
+const seedMenu = async () => {
+  await connectDB();
+  try {
+    const categories = await Category.find({});
+
+    // Itérer sur chaque catégorie
+    for (const category of categories) {
+      const name = category.name;
+
+      // Trouver la catégorie correspondante dans myMenu
+      for (const menuCategory of myMenu.categories) {
+        if (menuCategory.categoryName === name) {
+          // Sauvegarder les plats (dishes) associés à cette catégorie
+
+          // for (const dish of menuCategory.dishes) {
+          //   await new Dishes({
+          //     name: dish.name,
+          //     description: dish.description,
+          //     prices: dish.prices,
+          //     category: category._id,
+          //   }).save();
+          // }
+          console.log(
+            "---------------Nous touchons la catégorie de " +
+              menuCategory.categoryName
+          );
+
+          for (const dish of menuCategory.dishes) {
+            console.log(dish);
+          }
         }
       }
     }
 
-    console.log("Menu seeded successfully with multiple languages!");
+    console.log("Dishes seeded successfully!");
+  } catch (error) {
+    console.error("Error while sending data:", error);
+  } finally {
+    await mongoose.connection.close();
+    console.log("Connection closed.");
+  }
+};
+
+const seedTranslation = async () => {
+  await connectDB();
+  try {
+    await Translation.deleteMany({referenceType: "Dishes"});
+    // Charler les menus
+
+    const menuFr = JSON.parse(fs.readFileSync(fileFr, "utf-8"));
+    const menuEn = JSON.parse(fs.readFileSync(fileEn, "utf-8"));
+    const menuPl = JSON.parse(fs.readFileSync(filePl, "utf-8"));
+    // const dishes = await Dishes.find({});
+    // let index=0
+    console.log(menuEn.dishes.length, menuFr.dishes.length, menuPl.dishes.length);
+  //   for (const dish of dishes) {
+  //     const dish_id = dish._id;
+  //     await new Translation({
+  //       referenceId: dish_id,
+  //       referenceType: "Dishes",
+  //       lang: "fr",
+  //       fields: {
+  //         name: menuFr.dishes[index].name,
+  //         description: menuFr.dishes[index].description,
+  //       }
+  //     })
+  //     await new Translation({
+  //       referenceId: dish_id,
+  //       referenceType: "Dishes",
+  //       lang: "en",
+  //       fields: {
+  //         name: menuEn.dishes[index].name,
+  //         description: menuEn.dishes[index].description,
+  //       }
+  //     })
+  //     await new Translation({
+  //       referenceId: dish_id,
+  //       referenceType: "Dishes",
+  //       lang: "pl",
+  //       fields: {
+  //         name: menuPl.dishes[index].name,
+  //         description: menuPl.dishes[index].description,
+  //       }
+  //     })
+  //     index++
+
+  
+  // }
+    console.log("Data deleted successfully!");
   } catch (error) {
     console.error("Error while sending data:", error);
   } finally {
@@ -93,7 +186,7 @@ const seedMenu = async () => {
 
 const runSeed = async () => {
   await connectDB(); // Attente de la connexion avant d'exécuter le seed
-  await seedMenu(); // Lancement du seed
+  await seedCategory(); // Lancement du seed
 };
 
 const testimonialSeed = async () => {
@@ -135,8 +228,14 @@ if (process.argv[2] === "--seedTestimonial") {
   testimonialSeed();
 }
 
-if (process.argv[2] === "--seedMenu") {
+if (process.argv[2] === "--seedCategory") {
   runSeed();
+}
+if (process.argv[2] === "--seedMenu") {
+  seedMenu();
+}
+if (process.argv[2] === "--seedTranslation") {
+  seedTranslation();
 }
 
 if (process.argv[2] === "--thanos") {

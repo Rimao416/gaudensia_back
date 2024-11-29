@@ -1,0 +1,679 @@
+{
+  "dishes": [
+    {
+      "name": "Pieczony Kurczak",
+      "description": "Kurczak pieczony w piekarniku, idealnie złocisty.",
+      "prices": [
+        {
+          "quantity": "Połowa",
+          "price": 80
+        },
+        {
+          "quantity": "Cały",
+          "price": 140
+        }
+      ]
+    },
+    {
+      "name": "Kurczak Smażony",
+      "description": "Chrupiący, przyprawiony smażony kurczak.",
+      "prices": [
+        {
+          "quantity": "Udo",
+          "price": 50
+        },
+        {
+          "quantity": "Połowa",
+          "price": 80
+        },
+        {
+          "quantity": "Cały",
+          "price": 140
+        }
+      ]
+    },
+    {
+      "name": "Kurczak Mayo",
+      "description": "Tradycyjny przepis kongolski: cały kurczak w kremowej marynacie z majonezem i warzywami.",
+      "prices": [
+        {
+          "quantity": "Połowa",
+          "price": 100
+        },
+        {
+          "quantity": "Cały",
+          "price": 180
+        }
+      ]
+    },
+    {
+      "name": "Szaszłyki Kurczaka",
+      "description": "Tradycyjny przepis kongolski: szaszłyki z marynowanego kurczaka z warzywami.",
+      "prices": [
+        {
+          "quantity": "5 Sztuk",
+          "price": 40
+        }
+      ]
+    },
+    {
+      "name": "Kurczak Yassa",
+      "description": "Kurczak gotowany w sosie z cebuli i oliwek, tradycyjny przepis senegalski.",
+      "prices": [
+        {
+          "quantity": "Dostępne",
+          "price": 60
+        }
+      ]
+    },
+    {
+      "name": "Kurczak w Sosie Orzechowym",
+      "description": "Delikatny kurczak gotowany w bogatym sosie orzechowym.",
+      "prices": [
+        {
+          "quantity": "Dostępne",
+          "price": 60
+        }
+      ]
+    },
+    {
+      "name": "Skrzydełka Kurczaka",
+      "description": "Chrupiące skrzydełka kurczaka, podawane z sosem BBQ.",
+      "prices": [
+        {
+          "quantity": "5 Sztuk",
+          "price": 40
+        }
+      ]
+    },
+    {
+      "name": "Podroby Kurczaka",
+      "description": "Pikantne, grillowane podroby kurczaka, delikatne i soczyste.",
+      "prices": [
+        {
+          "quantity": "Dostępne",
+          "price": 35
+        }
+      ]
+    },
+    {
+      "name": "Kurczak Panierowany",
+      "description": "Kurczak panierowany na złocisty kolor, podawany z świeżymi warzywami.",
+      "prices": [
+        {
+          "quantity": "Dostępne",
+          "price": 60
+        }
+      ]
+    },
+    {
+      "name": "Kurczak z Oliwkami",
+      "description": "Kurczak gotowany z oliwkami i ziołami śródziemnomorskimi.",
+      "prices": [
+        {
+          "quantity": "Dostępne",
+          "price": 60
+        }
+      ]
+    },
+    {
+      "name": "Grillowane Mięso z Kozy",
+      "description": "Mięso z kozy gotowane na wolnym ogniu, marynowane w afrykańskich przyprawach.",
+      "prices": [
+        {
+          "quantity": "1kg",
+          "price": 350
+        },
+        {
+          "quantity": "500g",
+          "price": 200
+        }
+      ]
+    },
+    {
+      "name": "Ntaba Mayo",
+      "description": "Mięso z kozy marynowane w sosie majonezowym, w stylu kongolskim.",
+      "prices": [
+        {
+          "quantity": "1kg",
+          "price": 350
+        },
+        {
+          "quantity": "500g",
+          "price": 200
+        }
+      ]
+    },
+    {
+      "name": "Rosół z Kozy",
+      "prices": [
+        {
+          "quantity": "1kg",
+          "price": 350
+        },
+        {
+          "quantity": "500g",
+          "price": 200
+        }
+      ]
+    },
+    {
+      "name": "Grillowana Jagnięcina",
+      "description": "Jagnięcina grillowana na węglu drzewnym lub elektrycznym grillu, przyprawiona marynatą.",
+      "prices": [
+        {
+          "quantity": "1kg",
+          "price": 350
+        },
+        {
+          "quantity": "500g",
+          "price": 200
+        }
+      ]
+    },
+    {
+      "name": "Kotleciki Jagnięce",
+      "description": "Delikatne grillowane kotleciki jagnięce, podawane z sosem domowym.",
+      "prices": [
+        {
+          "quantity": "1kg",
+          "price": 250
+        },
+        {
+          "quantity": "500g",
+          "price": 150
+        }
+      ]
+    },
+    {
+      "name": "Smażona Wieprzowina",
+      "description": "Marynowana i perfekcyjnie smażona wieprzowina, podawana z sosem domowym.",
+      "prices": [
+        {
+          "quantity": "Porcja",
+          "price": 60
+        }
+      ]
+    },
+    {
+      "name": "Pieczona Wieprzowina",
+      "description": "Powoli pieczona wieprzowina, podawana z lekkim sosem.",
+      "prices": [
+        {
+          "quantity": "Porcja",
+          "price": 60
+        }
+      ]
+    },
+    {
+      "name": "Wieprzowina z Majonezem",
+      "description": "Wieprzowina w kremowym sosie majonezowym, w stylu kongolskim.",
+      "prices": [
+        {
+          "quantity": "500g",
+          "price": 70
+        }
+      ]
+    },
+    {
+      "name": "Wieprzowina w Liściu Bananowca (Liboke ya Ngulu)",
+      "description": "Wieprzowina gotowana w liściach bananowca, marynowana w tradycyjnych afrykańskich przyprawach.",
+      "prices": [
+        {
+          "quantity": "Porcja",
+          "price": 120
+        }
+      ]
+    },
+    {
+      "name": "Smażona Wieprzowina z Warzywami",
+      "description": "Wieprzowina smażona z chrupiącymi warzywami, doprawiona do smaku.",
+      "prices": [
+        {
+          "quantity": "500g",
+          "price": 60
+        }
+      ]
+    },
+    {
+      "name": "Szaszłyki Wieprzowe",
+      "description": "Szaszłyki z marynowanej i grillowanej wieprzowiny.",
+      "prices": [
+        {
+          "quantity": "6 Sztuk",
+          "price": 50
+        }
+      ]
+    },
+    {
+      "name": "Żeberka Wieprzowe",
+      "description": "Grillowane żeberka wieprzowe, podawane z wyborem sosu.",
+      "prices": [
+        {
+          "quantity": "Porcja",
+          "price": 70
+        }
+      ]
+    },
+    {
+      "name": "Szaszłyki Wołowe",
+      "description": "Grillowane szaszłyki wołowe, marynowane w wyśmienitych przyprawach.",
+      "prices": [
+        {
+          "quantity": "5 Sztuk",
+          "price": 60
+        }
+      ]
+    },
+    {
+      "name": "Wołowina z Warzywami",
+      "description": "Wołowina smażona z chrupiącymi warzywami i doprawiona pikantnym sosem.",
+      "prices": [
+        {
+          "quantity": "500g",
+          "price": 100
+        }
+      ]
+    },
+    {
+      "name": "Rosół Wołowy",
+      "description": "Wołowina gotowana powoli w aromatycznym rosole.",
+      "prices": [
+        {
+          "quantity": "500g",
+          "price": 100
+        }
+      ]
+    },
+    {
+      "name": "Flaki",
+      "description": "Wołowe flaki gotowane w pikantnym sosie pomidorowym.",
+      "prices": [
+        {
+          "quantity": "500g",
+          "price": 100
+        }
+      ]
+    },
+    {
+      "name": "Pieczona Wołowina",
+      "description": "Powoli pieczona wołowina, podawana z bogatym sosem.",
+      "prices": [
+        {
+          "quantity": "500g",
+          "price": 120
+        }
+      ]
+    },
+    {
+      "name": "Wątroba Wołowa",
+      "description": "Wątroba wołowa w sosie pomidorowym lub smażona z warzywami.",
+      "prices": [
+        {
+          "quantity": "500g",
+          "price": 50
+        }
+      ]
+    },
+    {
+      "name": "Kotlety Wołowe",
+      "description": "Soczyste kotlety wołowe podawane w pikantnym sosie pomidorowym.",
+      "prices": [
+        {
+          "quantity": "6 Sztuk",
+          "price": 50
+        }
+      ]
+    },
+    {
+      "name": "Gniazdo",
+      "description": "Mielone mięso i jajko w kształcie gniazda.",
+      "prices": [
+        {
+          "quantity": "3 Sztuki",
+          "price": 50
+        }
+      ]
+    },
+    {
+      "name": "Tilapia",
+      "description": "Grillowana lub smażona tilapia, podawana z sosem cytrynowym.",
+      "prices": [
+        {
+          "quantity": "Porcja",
+          "price": 80
+        }
+      ]
+    },
+    {
+      "name": "Mamba",
+      "description": "Grillowana mamba, ryba wędzona w stylu afrykańskim.",
+      "prices": [
+        {
+          "quantity": "Porcja",
+          "price": 70
+        }
+      ]
+    },
+    {
+      "name": "Puree z Batatów",
+      "description": "Słodkie, kremowe puree z batatów.",
+      "prices": [
+        {
+          "quantity": "1 Porcja",
+          "price": 40
+        }
+      ]
+    },
+    {
+      "name": "Fufu",
+      "description": "Tradycyjny kongolski fufu, gotowany z mąki maniokowej.",
+      "prices": [
+        {
+          "quantity": "1 Porcja",
+          "price": 50
+        }
+      ]
+    },
+    {
+      "name": "Chikwang",
+      "description": "",
+      "prices": [
+        {
+          "quantity": "1 portion",
+          "price": 20
+        }
+      ]
+    },
+    {
+      "name": "Sautéed Potatoes",
+      "description": "",
+      "prices": [
+        {
+          "quantity": "1 portion",
+          "price": 25
+        }
+      ]
+    },
+    {
+      "name": "Potato Fries",
+      "description": "",
+      "prices": [
+        {
+          "quantity": "1 portion",
+          "price": 20
+        }
+      ]
+    },
+    {
+      "name": "Mashed Potatoes",
+      "description": "",
+      "prices": [
+        {
+          "quantity": "1 portion",
+          "price": 25
+        }
+      ]
+    },
+    {
+      "name": "Fufu",
+      "description": "",
+      "prices": [
+        {
+          "quantity": "1 portion",
+          "price": 10
+        }
+      ]
+    },
+    {
+      "name": "White Rice",
+      "description": "",
+      "prices": [
+        {
+          "quantity": "1 portion",
+          "price": 25
+        }
+      ]
+    },
+    {
+      "name": "Rice (Red, Yellow, Grilled)",
+      "description": "Flavored rice with vegetables, tomato sauce, or spices.",
+      "prices": [
+        {
+          "quantity": "1 portion",
+          "price": 28
+        }
+      ]
+    },
+    {
+      "name": "Cassava Fries",
+      "description": "Crispy fried cassava, served with spicy sauce.",
+      "prices": [
+        {
+          "quantity": "1 portion",
+          "price": 30
+        }
+      ]
+    },
+    {
+      "name": "Grilled or Steamed Plantain",
+      "description": "Grilled or steamed plantain served with homemade sauces.",
+      "prices": [
+        {
+          "quantity": "1 portion",
+          "price": 30
+        }
+      ]
+    },
+    {
+      "name": "Bissap",
+      "description": "Refreshing hibiscus flower juice, slightly sweet.",
+      "prices": [
+        {
+          "quantity": "1 glass",
+          "price": 15
+        }
+      ]
+    },
+    {
+      "name": "Ginger Juice",
+      "description": "Spicy, energizing drink made from fresh ginger.",
+      "prices": [
+        {
+          "quantity": "1 glass",
+          "price": 15
+        }
+      ]
+    },
+    {
+      "name": "Lemonade",
+      "description": "Homemade lemonade, sweet and tangy.",
+      "prices": [
+        {
+          "quantity": "1 glass",
+          "price": 15
+        }
+      ]
+    },
+    {
+      "name": "Chili Sauce",
+      "description": "Flavored chili sauce, perfect as a side for your dishes.",
+      "prices": [
+        {
+          "quantity": "1 portion",
+          "price": 3
+        }
+      ]
+    },
+    {
+      "name": "Red Tomato Sauce",
+      "description": "Homemade tomato sauce, slightly spicy.",
+      "prices": [
+        {
+          "quantity": "1 portion",
+          "price": 12
+        }
+      ]
+    },
+    {
+      "name": "White Cream Sauce",
+      "description": "Creamy sauce made with fresh cream, ideal for meats.",
+      "prices": [
+        {
+          "quantity": "1 portion",
+          "price": 15
+        }
+      ]
+    },
+    {
+      "name": "Cheese Sauce",
+      "description": "Melty cheese sauce, perfect for fries or tacos.",
+      "prices": [
+        {
+          "quantity": "1 portion",
+          "price": 17
+        }
+      ]
+    },
+    {
+      "name": "Mushroom Sauce",
+      "description": "Creamy sauce with fresh mushrooms, great with meats.",
+      "prices": [
+        {
+          "quantity": "1 portion",
+          "price": 20
+        }
+      ]
+    },
+    {
+      "name": "Chocolate Sauce (Dark, White, Milk)",
+      "description": "Chocolate sauce, ideal for desserts.",
+      "prices": [
+        {
+          "quantity": "1 portion",
+          "price": 6
+        }
+      ]
+    },
+    {
+      "name": "Spring Rolls (Chicken, Pork, Shrimp, Minced Meat, Vegetables)",
+      "description": "Delicious fried rolls filled with a choice of meat or vegetables, crispy outside.",
+      "prices": [
+        {
+          "quantity": "7 pieces",
+          "price": 40
+        }
+      ]
+    },
+    {
+      "name": "Samosa",
+      "description": "Delicious flaky triangles filled with minced meat, chicken, pork, or vegetables.",
+      "prices": [
+        {
+          "quantity": "5 pieces",
+          "price": 35
+        }
+      ]
+    },
+    {
+      "name": "Shrimp Fritters",
+      "description": "Crispy shrimp fritters coated in a light batter.",
+      "prices": [
+        {
+          "quantity": "7 pieces",
+          "price": 30
+        }
+      ]
+    },
+    {
+      "name": "Tacos",
+      "description": "Tacos filled with your choice of chicken, beef, or pork, served with a sauce of your choice.",
+      "prices": [
+        {
+          "quantity": "1 portion",
+          "price": 28
+        }
+      ]
+    },
+    {
+      "name": "Crunchy Croquettes",
+      "description": "Small crispy croquettes, perfect for appetizers.",
+      "prices": [
+        {
+          "quantity": "1 portion",
+          "price": 17
+        }
+      ]
+    },
+    {
+      "name": "Donuts",
+      "description": "Golden, fluffy donuts, sprinkled with sugar.",
+      "prices": [
+        {
+          "quantity": "15 pieces",
+          "price": 25
+        }
+      ]
+    },
+    {
+      "name": "Crepes",
+      "description": "Thin, light crepes served with sugar or syrup.",
+      "prices": [
+        {
+          "quantity": "10 pieces",
+          "price": 25
+        }
+      ]
+    },
+    {
+      "name": "Pancakes",
+      "description": "Fluffy, light golden pancakes served with maple syrup or a sauce of your choice.",
+      "prices": [
+        {
+          "quantity": "10 pieces",
+          "price": 30
+        }
+      ]
+    },
+    {
+      "name": "Waffles",
+      "description": "Crispy on the outside, fluffy on the inside, served with chocolate sauce of your choice.",
+      "prices": [
+        {
+          "quantity": "5 pieces",
+          "price": 25
+        }
+      ]
+    },
+    {
+      "name": "Cupcake",
+      "description": "Soft, moist cupcake with vanilla or chocolate flavor.",
+      "prices": [
+        {
+          "quantity": "5 pieces",
+          "price": 30
+        }
+      ]
+    },
+    {
+      "name": "Sweet French Toast",
+      "description": "Golden brioche bread, stuffed with chocolate, served with maple syrup.",
+      "prices": [
+        {
+          "quantity": "1 portion",
+          "price": 30
+        }
+      ]
+    },
+    {
+      "name": "Savory French Toast",
+      "description": "Golden brioche bread coated in eggs, served with a sauce of your choice.",
+      "prices": [
+        {
+          "quantity": "1 portion",
+          "price": 25
+        }
+      ]
+    }
+  ]
+}
