@@ -1,0 +1,42 @@
+{
+    "fr": {
+      "validation": {
+        "required": "Le champ {field} est requis.",
+        "minLength": "Le champ {field} doit contenir au moins {value} caractères."
+      },
+      "auth": {
+        "unauthorized": "Vous n'êtes pas autorisé à effectuer cette action.",
+        "forbidden": "Accès refusé."
+      },
+      "server": {
+        "internalError": "Erreur interne du serveur. Veuillez réessayer plus tard."
+      }
+    },
+    "en": {
+      "validation": {
+        "required": "The field {field} is required.",
+        "minLength": "The field {field} must have at least {value} characters."
+      },
+      "auth": {
+        "unauthorized": "You are not authorized to perform this action.",
+        "forbidden": "Access denied."
+      },
+      "server": {
+        "internalError": "Internal server error. Please try again later."
+      }
+    },
+    "pl": {
+      "validation": {
+        "required": "Pole {field} jest wymagane.",
+        "minLength": "Pole {field} musi mieć co najmniej {value} znaków."
+      },
+      "auth": {
+        "unauthorized": "Nie masz uprawnień do wykonania tej akcji.",
+        "forbidden": "Dostęp zabroniony."
+      },
+      "server": {
+        "internalError": "Błąd wewnętrzny serwera. Spróbuj ponownie później."
+      }
+    }
+  }
+  

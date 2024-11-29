@@ -41,7 +41,6 @@ export const translationMiddleware = async (
       filter: FilterQuery<T> = {} // Utilisation de FilterQuery<T> au lieu de Partial<T>
     ): Promise<Translated<T>[]> => {
       const originalDataList = await model.find(filter).lean();
-
       const translations = await Translation.find({
         referenceId: { $in: originalDataList.map((data: any) => data._id) },
         referenceType,

@@ -11,6 +11,7 @@ import testimonialRoutes from "./routes/testimonialRoutes";
 import authRoutes from "./routes/authRoutes";
 import userRoutes from "./routes/userRoutes";
 import cartRoutes from "./routes/cartRoutes";
+import translationRoutes from "./routes/translationRoutes"
 
 // const authRoute = require("./routes/auth");
 const app: Application = express();
@@ -53,6 +54,7 @@ app.use("/api/v1/testimonials", testimonialRoutes);
 app.use("/api/v1/auth", authRoutes);
 app.use("/api/v1/user", userRoutes);
 app.use("/api/v1/cart", cartRoutes);
+app.use("/api/v1/translation", translationRoutes)
 
 // Handle Errors
 
