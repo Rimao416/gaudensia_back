@@ -90,8 +90,9 @@ const globalErrorHandler = (
     process.env.NODE_ENV === "production" ||
     process.env.NODE_ENV === "test"
   ) {
+
     let error = err;
-    console.log(error);
+    console.log("SALUT TOUT LE MONDE");
     if (error.name === "CastError")
       error = handleCastErrorDB(error as CastError);
     if (error.code === 11000)

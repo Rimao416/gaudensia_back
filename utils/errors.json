@@ -1,42 +1,70 @@
 {
-    "fr": {
-      "validation": {
-        "required": "Le champ {field} est requis.",
-        "minLength": "Le champ {field} doit contenir au moins {value} caractères."
-      },
-      "auth": {
-        "unauthorized": "Vous n'êtes pas autorisé à effectuer cette action.",
-        "forbidden": "Accès refusé."
-      },
-      "server": {
-        "internalError": "Erreur interne du serveur. Veuillez réessayer plus tard."
-      }
+  "fr": {
+    "validation": {
+      "required": "Le champ {{field}} est requis.",
+      "minLength": "Le champ {{field}} doit contenir au moins {{value}} caractères.",
+      "invalidInput": "Les données fournies sont invalides : {{errors}}.",
+      "pathRequired": "Path '{{field}}' is required."
     },
-    "en": {
-      "validation": {
-        "required": "The field {field} is required.",
-        "minLength": "The field {field} must have at least {value} characters."
-      },
-      "auth": {
-        "unauthorized": "You are not authorized to perform this action.",
-        "forbidden": "Access denied."
-      },
-      "server": {
-        "internalError": "Internal server error. Please try again later."
-      }
+    "auth": {
+      "unauthorized": "Vous n'êtes pas autorisé à effectuer cette action.",
+      "forbidden": "Accès refusé.",
+      "tokenExpired": "Votre session a expiré. Veuillez vous reconnecter.",
+      "invalidToken": "Le jeton fourni est invalide."
     },
-    "pl": {
-      "validation": {
-        "required": "Pole {field} jest wymagane.",
-        "minLength": "Pole {field} musi mieć co najmniej {value} znaków."
-      },
-      "auth": {
-        "unauthorized": "Nie masz uprawnień do wykonania tej akcji.",
-        "forbidden": "Dostęp zabroniony."
-      },
-      "server": {
-        "internalError": "Błąd wewnętrzny serwera. Spróbuj ponownie później."
-      }
+    "server": {
+      "internalError": "Erreur interne du serveur. Veuillez réessayer plus tard."
+    },
+    "database": {
+      "duplicate": "Un enregistrement avec la valeur {{value}} existe déjà."
+    },
+    "translation": {
+      "notFound": "{{referenceType}} introuvable."
+    }
+  },
+  "en": {
+    "validation": {
+      "required": "The field {{field}} is required.",
+      "minLength": "The field {{field}} must have at least {{value}} characters.",
+      "invalidInput": "The provided data is invalid: {{errors}}.",
+      "pathRequired": "Path '{{field}}' is required."
+    },
+    "auth": {
+      "unauthorized": "You are not authorized to perform this action.",
+      "forbidden": "Access denied.",
+      "tokenExpired": "Your session has expired. Please log in again.",
+      "invalidToken": "The provided token is invalid."
+    },
+    "server": {
+      "internalError": "Internal server error. Please try again later."
+    },
+    "database": {
+      "duplicate": "A record with the value {{value}} already exists."
+    },
+    "translation": {
+      "notFound": "{{referenceType}} not found."
+    }
+  },
+  "pl": {
+    "validation": {
+      "required": "Pole {{field}} jest wymagane.",
+      "minLength": "Pole {{field}} musi mieć co najmniej {{value}} znaków.",
+      "invalidInput": "Podane dane są nieprawidłowe: {{errors}}."
+    },
+    "auth": {
+      "unauthorized": "Nie masz uprawnień do wykonania tej akcji.",
+      "forbidden": "Dostęp zabroniony.",
+      "tokenExpired": "Twoja sesja wygasła. Zaloguj się ponownie.",
+      "invalidToken": "Podany token jest nieprawidłowy."
+    },
+    "server": {
+      "internalError": "Błąd wewnętrzny serwera. Spróbuj ponownie później."
+    },
+    "database": {
+      "duplicate": "Rekord z wartością {{value}} już istnieje."
+    },
+    "translation": {
+      "notFound": "{{referenceType}} nie znaleziono."
     }
   }
-  
+}

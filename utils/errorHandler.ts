@@ -2,9 +2,9 @@ import { Request, Response, NextFunction } from "express";
 import { getErrorMessage } from "./errorMessages";
 export const errorHandler = (
   err: any,
-  req: Request,
+  _req: Request,
   res: Response,
-  next: NextFunction
+  _next: NextFunction
 ) => {
   const lang = res.locals.lang || "en";
 

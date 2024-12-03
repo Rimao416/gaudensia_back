@@ -14,8 +14,11 @@ import translationRoutes from "./routes/translationRoutes"
 // const authRoute = require("./routes/auth");
 const app: Application = express();
 import cors from "cors";
-import { globalErrorHandler } from "./utils/globalErrorHandler";
+import globalErrorHandler from "./utils/errorController";
+// import globalErrorHandler from "./controllers/errorController";
+// import { errorHandler } from "./utils/errorHandler";
 // 1) MIDDLEWARE
+
 
 app.use(cookieParser()); // Nécessaire pour lire les cookies
 app.use(
@@ -61,6 +64,7 @@ app.all("*", (req, _res, next) => {
   next(new AppError(`Can't find ${req.originalUrl} on this server!`, 404));
 });
 
+// app.use(errorHandler)
 app.use(globalErrorHandler);
 
 

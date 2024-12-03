@@ -1,17 +1,19 @@
-import { Request, Response } from "express";
+import { NextFunction, Request, Response } from "express";
 import Dishes from "../models/Dishes";
 // import APIFeatures from "../utils/apiFeatures";
 import mongoose from "mongoose";
 import Translation from "../models/Translation";
+import catchAsync from "../utils/catchAsync";
 
-export const addDishe = async (req: Request, res: Response) => {
-  try {
-    const dish = await Dishes.create(req.body);
-    return res.status(201).json(dish);
-  } catch (error) {
-    return res.status(500).json({ err: error });
-  }
-};
+export const addDishe = catchAsync(async (req: Request, res: Response, _next:NextFunction) => {
+  const newDish = await Dishes.create(req.body);
+  res.status(201).json({
+    status: "success",
+    data: {
+      newDish,
+    },
+  });
+})
 
 export const addDishWithTranslations = async (req: Request, res: Response) => {
   try {
@@ -64,6 +66,7 @@ export const getAllDishes = async (_req: Request, res: Response) => {
   try {
     const { getAllTranslated } = res.locals;
     console.log(getAllTranslated)
+    
 
     // Utilisation de la méthode getAllTranslated pour récupérer les plats traduits
     const translatedDishes = await getAllTranslated(Dishes, "Dishes");
@@ -91,9 +94,8 @@ export const singleDishes = async (req: Request, res: Response) => {
     }
 
     res.status(200).json(translatedDish);
-  } catch (error:unknown) {
-    console.error("Erreur lors de la récupération du plat :", error);
-    res.status(404).json({ message: "error.message" });
+  } catch (error:any) {
+    res.status(404).json({ message: error.message });
   }
 };
 

@@ -1,6 +1,7 @@
 import { Request, Response, NextFunction } from "express";
 import { Model, Document, FilterQuery } from "mongoose";
 import Translation from "../models/Translation";
+import { getErrorMessage, Lang } from "./errorMessages";
 
 // Définir un type générique pour les données traduites
 type Translated<T> = T & { [key: string]: any }; // Permet l'ajout de champs traduits
@@ -11,7 +12,7 @@ export const translationMiddleware = async (
   next: NextFunction
 ) => {
   try {
-    const lang = (req.query.lang as string) || "fr"; // Langue par défaut
+    const lang = (req.query.lang as Lang) || "fr"; // Langue par défaut
     res.locals.lang = lang;
 
     // Méthode utilitaire pour traduire un document par ID
@@ -21,7 +22,13 @@ export const translationMiddleware = async (
       referenceType: string
     ): Promise<Translated<T> | null> => {
       const originalData = await model.findById(referenceId).lean();
-      if (!originalData) throw new Error(`${referenceType} introuvable`);
+      if (!originalData) {
+        throw new Error(
+          getErrorMessage(lang, "translation", "notFound", {
+            referenceType,
+          })
+        );
+      }
 
       const translation = await Translation.findOne({
         referenceId: originalData._id,

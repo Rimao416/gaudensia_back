@@ -42,7 +42,6 @@ interface unhandledRejection {
   stack?: string;
   code?: number;
 }
-console.log(process.env.NODE_ENV);
 process.on("unhandledRejection", (err: unhandledRejection) => {
   console.log(err.name, err.message);
   // process.exit(1)
