@@ -1,0 +1,16 @@
+{
+    "prices.required": "Prices are required.",
+    "prices.array": "Prices must be an array.",
+    "prices.min": "At least one price is required.",
+    "prices.quantity.required": "Quantity is required.",
+    "prices.price.required": "Price is required.",
+    "prices.price.type": "Price must be a number.",
+    "category.required": "Category is required.",
+    "translations.required": "Translations are required.",
+    "translations.array": "Translations must be an array.",
+    "translations.min": "At least one translation is required.",
+    "translations.lang.required": "Language is required for each translation.",
+    "translations.name.required": "Translated name is required.",
+    "translations.description.required": "Translated description is required."
+  }
+  

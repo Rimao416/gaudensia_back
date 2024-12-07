@@ -1,0 +1,19 @@
+{
+    "prices.required": "Les prix sont obligatoires.",
+    "prices.array": "Les prix doivent être un tableau.",
+    "prices.min": "Au moins un prix est requis.",
+    "prices.quantity.required": "La quantité est obligatoire.",
+    "prices.price.required": "Le prix est obligatoire.",
+    "prices.price.type": "Le prix doit être un nombre.",
+    "category.required": "La catégorie est obligatoire.",
+    "translations.required": "Les traductions sont obligatoires.",
+    "translations.array": "Les traductions doivent être un tableau.",
+    "translations.min": "Au moins une traduction est requise.",
+    "translations.lang.required": "La langue est obligatoire pour chaque traduction.",
+    "translations.name.required": "Le nom traduit est obligatoire.",
+    "translations.description.required": "La description traduite est obligatoire.",
+    "dishes.notFound": "Aucun plat trouvé",
+    "dishes.found": "Plats trouvés",
+    "server.error": "Erreur interne du serveur"
+  }
+  

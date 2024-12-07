@@ -12,9 +12,9 @@ export const translationMiddleware = async (
   next: NextFunction
 ) => {
   try {
-    const lang = (req.query.lang as Lang) || "fr"; // Langue par défaut
+    const lang = (req.headers.lang as Lang) || "fr"; // Langue par défaut
     res.locals.lang = lang;
-
+    console.log("Langue : " + lang);
     // Méthode utilitaire pour traduire un document par ID
     res.locals.getTranslatedById = async <T extends Document>(
       model: Model<T>,

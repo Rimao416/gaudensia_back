@@ -3,7 +3,6 @@ import { Request, Response, NextFunction } from "express";
 import AppError from "./appError";
 import { getErrorMessage, Lang } from "./errorMessages";
 
-
 interface CustomError extends Error {
   statusCode?: number;
   status?: string;
@@ -24,8 +23,6 @@ interface DuplicateError extends CustomError {
 interface ValidationError extends CustomError {
   errors: { [key: string]: { message: string } };
 }
-
-
 
 const handleJWTExpiredError = (lang: Lang): AppError => {
   const message = getErrorMessage(lang, "auth", "tokenExpired");
@@ -50,7 +47,10 @@ const handleDuplicateErrorDB = (err: DuplicateError, lang: Lang): AppError => {
   return new AppError(message, 400);
 };
 
-const handleValidationErrorDB = (err: ValidationError, lang: Lang): AppError => {
+const handleValidationErrorDB = (
+  err: ValidationError,
+  lang: Lang
+): AppError => {
   console.log("ValidationError détectée");
 
   // Construit un message concaténé à partir des erreurs
@@ -59,21 +59,23 @@ const handleValidationErrorDB = (err: ValidationError, lang: Lang): AppError => 
     .join(". ");
 
   // Passe les erreurs comme placeholder
-  const message = getErrorMessage(lang, "validation", "invalidInput", { errors });
+  const message = getErrorMessage(lang, "validation", "invalidInput", {
+    errors,
+  });
 
   return new AppError(message, 400);
 };
 
-
-
-const sendError = (err: CustomError, lang: Lang, res: Response): void => {
+const sendErrorProd = (err: CustomError, res: Response): void => {
   if (err.isOperational) {
-    const message = getErrorMessage(lang, "server", err.message, err.placeholders);
-    res.status(err.statusCode || 500).json({ status: err.status || "error", message });
+    res.status(err.statusCode || 500).json({
+      status: err.status || "error",
+      message: err.message,
+    });
   } else {
     res.status(500).json({
       status: "error",
-      message: getErrorMessage(lang, "server", "internalError"),
+      message: "Erreur inattendue",
     });
   }
 };
@@ -84,18 +86,23 @@ const globalErrorHandler = (
   res: Response,
   _next: NextFunction
 ): void => {
-  err.statusCode = err.statusCode || 500;
-  err.status=err.status || "error"
   const lang = res.locals.lang || "fr";
+  err.statusCode = err.statusCode || 500;
+  err.status = err.status || "error";
+  err.isOperational = err.isOperational || false;
   let error = err;
 
-  if (error.name === "CastError") error = handleCastErrorDB(error as CastError, lang);
-  if (error.code === 11000) error = handleDuplicateErrorDB(error as DuplicateError, lang);
-  if (error.name === "ValidationError") error = handleValidationErrorDB(error as ValidationError, lang);
+  if (error.name === "CastError")
+    error = handleCastErrorDB(error as CastError, lang);
+  if (error.code === 11000)
+    error = handleDuplicateErrorDB(error as DuplicateError, lang);
+  if (error.name === "ValidationError")
+    error = handleValidationErrorDB(error as ValidationError, lang);
   if (error.name === "JsonWebTokenError") error = handleJWTError(lang);
   if (error.name === "TokenExpiredError") error = handleJWTExpiredError(lang);
 
-  sendError(error, lang, res);
+  // sendError(error, lang, res);
+  sendErrorProd(error, res);
 };
 
-export default globalErrorHandler
+export default globalErrorHandler;
