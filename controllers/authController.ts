@@ -11,7 +11,7 @@ interface DecodedToken extends JwtPayload {
 
 const signToken = (id: string) => {
   return jwt.sign({ id }, process.env.JWT_SECRET!, {
-    expiresIn: "15m",
+    expiresIn: "1m",
   });
 };
 
@@ -39,7 +39,7 @@ const createSendToken = (user: any, statusCode: number, res: Response) => {
     httpOnly: false,
     secure: process.env.NODE_ENV === "production",
     sameSite: "strict" as const,
-    maxAge: 15 * 60 * 1000, // Expire en 15 minutes
+    maxAge: 1 * 60 * 1000, // Expire en 15 minutes
   });
 
   // if (process.env.NODE_ENV === "production") {
@@ -66,7 +66,7 @@ const jwtVerifyPromisified = (token: string, secret: string) => {
       } else {
         resolve(payload);
       }
-    });
+    });   
   });
 };
 
