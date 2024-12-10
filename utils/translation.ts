@@ -45,25 +45,25 @@ export const translationMiddleware = async (
     res.locals.getAllTranslated = async <T extends Document>(
       model: Model<T>,
       referenceType: string,
-      filter: FilterQuery<T> = {} // Utilisation de FilterQuery<T> au lieu de Partial<T>
+      filter: FilterQuery<T> = {} // Utilisation de FilterQuery<T> pour le filtrage
     ): Promise<Translated<T>[]> => {
-      const originalDataList = await model.find(filter).lean();
+      const originalDataList = await model.find(filter).lean(); // Appliquer le filtre ici
       const translations = await Translation.find({
         referenceId: { $in: originalDataList.map((data: any) => data._id) },
         referenceType,
         lang,
       }).lean();
-
+    
       return originalDataList.map((originalData: any) => {
         const translation = translations.find(
           (trans) => String(trans.referenceId) === String(originalData._id)
         );
-
         return translation
           ? { ...originalData, ...translation.fields } as Translated<T> // Cast explicite vers Translated<T>
           : (originalData as Translated<T>); // Cast explicite vers Translated<T>
       });
     };
+    
 
     next();
   } catch (error) {

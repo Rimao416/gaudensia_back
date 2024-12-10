@@ -2,7 +2,7 @@ import { ObjectId, Schema, model } from "mongoose";
 export interface Dishes {
   category:ObjectId;
   prices: {
-    quatinty: string;
+    quantity: string;
     price: string;
   }[];
 }
