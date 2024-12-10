@@ -341,44 +341,53 @@ export const getMenuByCategories = async (req: Request, res: Response) => {
   }
 };
 
+export const validateSearchRequest = (req: Request, res: Response, next: Function) => {
+  const lang = req.headers.lang ?? "fr";
+  const search = req.query.search ?? "";
+
+  if (typeof lang !== "string" || !lang.trim()) {
+    return res.status(400).json({ message: "La langue est requise et doit être une chaîne de caractères." });
+  }
+
+  if (typeof search !== "string" || !search.trim()) {
+    return res.status(400).json({ message: "Le terme de recherche est requis et doit être une chaîne de caractères." });
+  }
+
+  next();
+};
+
+
 export const searchTranslations = async (req: Request, res: Response) => {
   try {
-    const lang = req.headers.lang || "fr";
-    console.log("C'est moi")
-    const search = req.query.search || "";
-    if (!lang || typeof lang !== "string") {
-      return res.status(400).json({ message: "La langue est requise." });
-    }
+    const lang = req.headers.lang as string;
+    const search = req.query.search as string;
 
-    if (!search || typeof search !== "string") {
-      return res.status(400).json({ message: "Le terme de recherche est requis." });
-    }
-
-    // Étape 1 : Recherche dans Translation
     const regex = new RegExp(search, "i");
-    const translations = await Translation.find({
-      lang,
-      referenceType: "Dishes",
-      "fields.name": regex,
-    });
 
-    const dishIds = translations.map((translation) => translation.referenceId);
+    // Étape 1 : Recherche dans Translation avec projection optimisée
+    const translations = await Translation.find(
+      {
+        lang,
+        referenceType: "Dishes",
+        "fields.name": regex,
+      },
+      "referenceId fields"
+    ).lean();
 
-    // Étape 2 : Recherche dans Dishes
+    const dishIds = translations.map((trans) => trans.referenceId);
+
+    // Étape 2 : Recherche dans Dishes et optimisation des catégories
     const dishes = await Dishes.find({ _id: { $in: dishIds } })
-      .populate("category", "name") // Charge uniquement le champ `name`
+      .populate("category", "name")
       .lean();
 
-    // Étape 3 : Nettoyage des données et conversion de Map
-    const formattedDishes = dishes.map((dish) => {
-      const translation = translations.find(
-        (trans) => String(trans.referenceId) === String(dish._id)
-      );
+    // Étape 3 : Mapping en une seule boucle
+    const translationMap = new Map(
+      translations.map((trans) => [String(trans.referenceId), trans.fields])
+    );
 
-      // Conversion de `fields` de Map à objet
-      const fields = translation && translation.fields instanceof Map
-      ? Object.fromEntries((translation.fields as Map<string, string>).entries())
-      : {};
+    const formattedDishes = dishes.map((dish) => {
+      const fields = translationMap.get(String(dish._id)) || {};
 
       return {
         _id: dish._id,
@@ -387,19 +396,18 @@ export const searchTranslations = async (req: Request, res: Response) => {
           quantity: price.quantity,
           price: price.price,
         })),
-        ...fields, // Ajout des champs `name` et `description`
+        ...fields,
       };
     });
 
-    // Si aucun plat trouvé
+    // Réponse si aucun résultat
     if (formattedDishes.length === 0) {
       return res.status(404).json({ message: "Aucun plat trouvé pour ce terme." });
     }
 
-    // Réponse finale
     res.status(200).json(formattedDishes);
-  } catch (error) {
-    console.error("Erreur lors de la recherche des plats :", error);
-    res.status(500).json({ message: "Erreur interne du serveur." });
+  } catch (error: any) {
+    console.error("Erreur lors de la recherche des plats :", error.message);
+    res.status(500).json({ message: "Erreur interne du serveur.", details: error.message });
   }
 };
