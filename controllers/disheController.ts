@@ -1,12 +1,24 @@
-import { Request, Response } from "express";
+import { NextFunction, Request, Response } from "express";
 import Dishes from "../models/Dishes";
 
 // import APIFeatures from "../utils/apiFeatures";
 // import mongoose from "mongoose";
 import Translation from "../models/Translation";
+import catchAsync from "../utils/catchAsync";
 import { addDishWithTranslationsSchema } from "../utils/validationSchema";
 import Category from "../models/Category";
 import { getValidationMessages } from "../utils/locales/getValidationMessages";
+
+export const addDishe = catchAsync(async (req: Request, res: Response, _next:NextFunction) => {
+  const newDish = await Dishes.create(req.body);
+  res.status(201).json({
+    status: "success",
+    data: {
+      newDish,
+    },
+  });
+})
+
 export const addDishWithTranslations = async (req: Request, res: Response) => {
   try {
     // Récupérer la langue de la requête
@@ -93,50 +105,49 @@ export const addDishWithTranslations = async (req: Request, res: Response) => {
 
 export const getAllDishes = async (req: Request, res: Response) => {
   try {
-    // Langue par défaut
-    const lang = (req.headers.lang as string) || "fr";
 
-    // Messages de validation
+    // Récupérer la langue de la requête, avec "fr" comme langue par défaut
+    const lang=req.headers.lang as string || "fr";
+
+    // Charger les messages de validation dans la langue appropriée
     const messages = getValidationMessages(lang);
 
-    // Mot-clé de recherche
-    const searchKeyword = req.query.search as string;
+    // Utilisation de la méthode getAllTranslated pour récupérer les plats traduits
+    const { getAllTranslated } = res.locals;  // Cela suppose que `getAllTranslated` est déjà ajouté dans `locals`
+    console.log(getAllTranslated);
 
-    // Construire le filtre de recherche
-    const searchQuery = searchKeyword
-      ? {
-          "fields.name": { $regex: searchKeyword, $options: "i" },
-        }
-      : {};
+    // Récupérer les plats traduits
+    const translatedDishes = await getAllTranslated(Dishes, "Dishes");
 
-    // Récupération des plats traduits avec le filtre
-    const { getAllTranslated } = res.locals;
-    const translatedDishes = await getAllTranslated(Dishes, "Dishes", searchQuery);
-
-    // Aucun plat trouvé
+    // Vérifier si des plats ont été trouvés
     if (translatedDishes.length === 0) {
       return res.status(404).json({
-        message: messages["dishes.notFound"] || "Aucun plat trouvé",
+        message: messages["dishes.notFound"] || "Aucun plat trouvé",  // Message d'erreur si aucun plat n'est trouvé
       });
     }
 
-    // Retour des plats
+    // Retourner la liste des plats traduits
     res.status(200).json({
       dishes: translatedDishes,
     });
   } catch (error) {
     console.error("Erreur lors de la récupération des plats traduits :", error);
-
-    // Récupérer les messages d'erreur en fonction de la langue
-    const lang = (req.headers.lang as string) || "fr";
+    
+    // Définir messages ici pour être accessible dans le bloc catch
+    const lang: string = (() => {
+      if (Array.isArray(req.query.lang)) {
+        return typeof req.query.lang[0] === "string" ? req.query.lang[0] : "fr";
+      }
+      return typeof req.query.lang === "string" ? req.query.lang : "fr";
+    })();
+    
     const messages = getValidationMessages(lang);
 
     res.status(500).json({
-      message: messages["server.error"] || "Erreur interne du serveur",
+      message: messages["server.error"] || "Erreur interne du serveur",  // Message d'erreur interne
     });
   }
 };
-
 
 
 export const singleDishes = async (req: Request, res: Response) => {
@@ -313,3 +324,58 @@ export const getMenuByCategories = async (req: Request, res: Response) => {
     res.status(500).json({ message: "Erreur serveur", error });
   }
 };
+
+
+// export const searchByCategories = async (req: Request, res: Response) => {
+//   try {
+//     const categoryId = req.params.id;
+
+//     const categoryWithMenus = await Dishes.aggregate([
+//       {
+//         $match: {
+//           category: new mongoose.Types.ObjectId(categoryId),
+//         },
+//       },
+//       {
+//         $lookup: {
+//           from: "categories",
+//           localField: "category",
+//           foreignField: "_id",
+//           as: "categoryDetails",
+//         },
+//       },
+//       {
+//         $unwind: "$categoryDetails",
+//       },
+//       {
+//         $group: {
+//           _id: "$category",
+//           categoryName: { $first: "$categoryDetails.name" },
+//           dishes: {
+//             $push: {
+//               _id: "$_id",
+//               name: "$name",
+//               description: "$description",
+//               prices: "$prices",
+//             },
+//           },
+//         },
+//       },
+//       {
+//         $project: {
+//           _id: 0,
+//           category: {
+//             _id: "$_id",
+//             name: "$categoryName",
+//           },
+//           dishes: "$dishes", // Enlève la limite pour afficher tous les plats
+//         },
+//       },
+//     ]);
+
+//     res.status(200).json(categoryWithMenus);
+//   } catch (error) {
+//     res.status(500).json({ message: "Server error", error });
+//   }
+// };
+
