@@ -6,7 +6,6 @@ import AppError from "../utils/appError";
 export const getUserInfo = catchAsync(
     async (req: AuthRequest, res: Response, next: NextFunction) => {
       console.log("Tu viens de faire une requete")
-
         const user = await User.findById(req.userId); // Récupérer l'utilisateur basé sur le userId
 
       if (!user) {
@@ -20,3 +19,5 @@ export const getUserInfo = catchAsync(
       });
     }
   );
+
+

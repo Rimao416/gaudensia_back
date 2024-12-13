@@ -346,7 +346,7 @@ export const validateSearchRequest = (req: Request, res: Response, next: Functio
   const search = req.query.search ?? "";
 
   if (typeof lang !== "string" || !lang.trim()) {
-    return res.status(400).json({ message: "La langue est requise et doit être une chaîne de caractères." });
+    return res.status(400).json({ message:  "La langue est requise et doit être une chaîne de caractères." });
   }
 
   if (typeof search !== "string" || !search.trim()) {
