@@ -9,6 +9,7 @@ import testimonialRoutes from "./routes/testimonialRoutes";
 import authRoutes from "./routes/authRoutes";
 import userRoutes from "./routes/userRoutes";
 import cartRoutes from "./routes/cartRoutes";
+import orderRoutes from "./routes/orderRoutes"
 import translationRoutes from "./routes/translationRoutes"
 
 // const authRoute = require("./routes/auth");
@@ -57,6 +58,7 @@ app.use("/api/v1/auth", authRoutes);
 app.use("/api/v1/user", userRoutes);
 app.use("/api/v1/cart", cartRoutes);
 app.use("/api/v1/translation", translationRoutes)
+app.use("/api/v1/orders", orderRoutes)
 
 // Handle Errors
 

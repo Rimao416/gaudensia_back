@@ -12,7 +12,7 @@ import { translationMiddleware } from "../utils/translation";
 const router: Router = Router();
 router.use(translationMiddleware);
 router.route("/").get(getAllDishes).post(addDishWithTranslations);
-router.get("/translations",validateSearchRequest, searchTranslations)
+router.get("/search",validateSearchRequest, searchTranslations)
 router.route("/getMenuCategories").get(getMenuByCategories);
 router.get("/:id", singleDishes);
 

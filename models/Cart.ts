@@ -2,8 +2,7 @@ import mongoose, { Schema, Document, ObjectId } from "mongoose";
 
 // Définition du schema pour l'article dans le panier
 const cartItemSchema = new Schema({
-  id: { type: String, required: true }, // ID unique de l'article
-  name: { type: String, required: true }, // Nom de l'article
+  id: { type: Schema.Types.ObjectId, ref: "Dishes", required: true }, // ID unique de l'article
   price: { type: Number, required: true }, // Prix de l'article
   quantity: { type: Number, required: true, default: 1 }, // Quantité de l'article dans le panier
 });
@@ -22,8 +21,9 @@ const cartSchema = new Schema({
 
 // Définir l'interface Ty peScript pour le modèle CartItem
 export interface CartItem {
-  id: string;
+  id: ObjectId;
   name: string;
+  description?:string;
   price: number;
   quantity: number;
 }
