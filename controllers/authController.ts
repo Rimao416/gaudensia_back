@@ -197,91 +197,98 @@ export const updateProfile = async (req: AuthRequest, res: Response) => {
 
     // Vérifier si le corps de la requête est vide
     if (!req.body || Object.keys(req.body).length === 0) {
-      return res.status(400).json({ message: "Aucun champ fourni" });
+      return res.status(400).json({ errors: { general: "Aucun champ fourni" } });
     }
 
     // Récupérer les champs de la requête
     const receivedFields = Object.keys(req.body);
 
     // Valider les champs reçus
-    const { isValid, invalidFields } = validateFields(
-      receivedFields,
-      allowedFields
-    );
+    const { isValid, invalidFields } = validateFields(receivedFields, allowedFields);
 
     if (!isValid) {
-      return res.status(400).json({
-        message: "Champs non autorisés",
-        invalidFields, // Inclut les champs invalides pour plus de clarté
-      });
+      const errors = (invalidFields || []).reduce((acc, field) => {
+        acc[field] = "Champ non autorisé";
+        return acc;
+      }, {} as Record<string, string>);
+
+      return res.status(400).json({ errors });
     }
 
     // Rechercher l'utilisateur
     const user = await User.findById(userId);
     if (!user) {
-      return res.status(404).json({ message: "Utilisateur non trouvé" });
+      return res.status(404).json({ errors: { general: "Utilisateur non trouvé" } });
     }
 
-    // Valider les valeurs des champs (par exemple, vérifier un email valide)
+    // Initialiser l'objet des erreurs
+    const errors: Record<string, string> = {};
+
+    // Valider les valeurs des champs
     for (const field of receivedFields) {
+      const value = req.body[field];
+
       if (field === "email") {
         const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-        if (!emailRegex.test(req.body[field])) {
-          return res
-            .status(400)
-            .json({ message: `Email invalide: ${req.body[field]}` });
-        }
-        if (user.email !== req.body.email) {
-          const existingUser = await User.findOne({ email: req.body.email });
+        if (!emailRegex.test(value)) {
+          errors[field] = "Email invalide";
+        } else if (user.email !== value) {
+          const existingUser = await User.findOne({ email: value });
           if (existingUser) {
-            return res.status(400).json({ message: "L'email existe deja" });
+            errors[field] = "L'email existe déjà";
           }
         }
       }
+
       if (field === "phoneNumber") {
         const phoneNumberRegex = /^[0-9]{10}$/;
-        if (!phoneNumberRegex.test(req.body[field])) {
-          return res
-            .status(400)
-            .json({ message: `Phone number invalide: ${req.body[field]}` });
-        }
-        if (user.phoneNumber !== req.body.phoneNumber) {
-          const existingUser = await User.findOne({
-            phoneNumber: req.body.phoneNumber,
-          });
+        if (!phoneNumberRegex.test(value)) {
+          errors[field] = "Numéro de téléphone invalide";
+        } else if (user.phoneNumber !== value) {
+          const existingUser = await User.findOne({ phoneNumber: value });
           if (existingUser) {
-            return res
-              .status(400)
-              .json({ message: "Le phoneNumber existe deja" });
+            errors[field] = "Le numéro de téléphone existe déjà";
           }
         }
       }
+
       if (field === "address") {
-        // Vérifier si le champ comporte au moins 3 caractères
-        if (req.body[field].length < 3) {
-          return res
-            .status(400)
-            .json({ message: "L'adresse doit avoir au moins 3 caractères" });
+        if (value.length < 3) {
+          errors[field] = "L'adresse doit avoir au moins 3 caractères";
         }
       }
+
       if (field === "fullName") {
-        // Vérifier si le nom complet est correct et ne contient des caractères spéciaux
-        if (!/^[a-zA-Z\s]+$/.test(req.body[field])) {
-          return res.status(400).json({
-            message: "Le nom complet doit contenir uniquement des lettres",
-          });
+        if (!/^[a-zA-Z\s]+$/.test(value)) {
+          errors[field] = "Le nom complet doit contenir uniquement des lettres";
         }
       }
     }
+
+    // Si des erreurs sont présentes, les retourner
+    if (Object.keys(errors).length > 0) {
+      return res.status(400).json({ errors });
+    }
+
     // Faire la mise à jour
     Object.assign(user, req.body);
     await user.save();
 
-    return res
-      .status(200)
-      .json({ message: "Profil mis à jour avec succès", user });
+    return res.status(200).json({ message: "Profil mis à jour avec succès", user });
   } catch (error) {
     console.error("Erreur dans updateProfile:", error);
-    return res.status(500).json({ message: "Une erreur est survenue", error });
+  
+    let errorMessage = "Une erreur inconnue est survenue";
+  
+    if (error instanceof Error) {
+      errorMessage = error.message;
+    } else if (typeof error === "string") {
+      errorMessage = error; // Si l'erreur est une chaîne
+    }
+  
+    return res.status(500).json({
+      errors: { general: "Une erreur est survenue", detail: errorMessage },
+    });
   }
 };
+
